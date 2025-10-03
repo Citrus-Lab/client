@@ -1,0 +1,470 @@
+@import "tailwindcss";
+
+/* Full screen setup */
+html, body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #121318; /* match sidebars */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Citrus theme tokens */
+:root {
+  --citrus-bg: #0a0b0e;
+  --citrus-surface: #121318;
+  --citrus-border: #272a33;
+  --citrus-text: #e5ffe5;
+  --citrus-muted: #a4a8b3;
+  --citrus-accent: #d7ff2f; /* Neon yellow-green */
+  --citrus-accent-2: #7dffa5; /* Mint */
+  --citrus-shadow: 0 0 0 1px rgba(215,255,47,0.25), 0 0 28px rgba(215,255,47,0.08);
+}
+
+/* App container theme */
+.citrus-theme {
+  background: #121318; /* match sidebars */
+  color: #e5e7eb;
+}
+
+.citrus-surface {
+  background: #121318; /* solid, no transparency */
+  border: 1px solid #b9ff2a; /* brighter */
+  box-shadow: none; /* remove glow */
+}
+
+.citrus-border {
+  border: 1px solid var(--citrus-border);
+}
+
+.citrus-accent-text {
+  color: var(--citrus-accent);
+}
+
+.citrus-accent-bg {
+  background-color: var(--citrus-accent);
+}
+
+.citrus-pill {
+  border: 1px solid rgba(215,255,47,0.35);
+  background: rgba(215,255,47,0.06);
+  color: #d6ffe0;
+}
+
+/* New: thin neon border and subtle glow */
+.citrus-neon-border {
+  border: 1px solid rgba(215,255,47,0.6);
+  box-shadow: 0 0 0 1px rgba(215,255,47,0.25) inset, 0 0 24px rgba(215,255,47,0.18);
+}
+
+/* Stronger neon for hero and centerpiece */
+.citrus-neon-border-strong {
+  border: 2px solid rgba(215,255,47,0.85);
+  box-shadow:
+    0 0 0 1px rgba(215,255,47,0.45) inset,
+    0 0 0 2px rgba(215,255,47,0.25),
+    0 0 32px rgba(215,255,47,0.35),
+    0 0 64px rgba(215,255,47,0.18);
+}
+
+/* New: main rounded stage container */
+.citrus-stage {
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(18,19,24,0.85), rgba(10,11,14,0.85));
+  border: 1px solid rgba(215,255,47,0.25);
+  box-shadow: 0 0 28px rgba(215,255,47,0.10);
+}
+
+/* New: hero header pill */
+.citrus-hero-pill {
+  border-radius: 12px;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(215,255,47,0.6);
+  box-shadow: 0 0 0 1px rgba(215,255,47,0.25) inset, 0 0 18px rgba(215,255,47,0.15);
+}
+
+/* New header bar: only bottom neon border, connects to edges */
+.citrus-header-bar {
+  background: transparent;
+  border-bottom: 2px solid rgba(215,255,47,0.85);
+  box-shadow: none;
+}
+
+/* Express capsule input */
+.citrus-express-capsule {
+  border-radius: 12px;
+  background: rgba(0,0,0,0.8);
+  border: 1px solid rgba(215,255,47,0.6);
+  box-shadow: 0 0 0 1px rgba(215,255,47,0.25) inset, 0 0 18px rgba(215,255,47,0.12);
+}
+
+.citrus-send-fab {
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  background: #0f1116;
+  border: 2px solid #d7ff2f;
+  color: var(--citrus-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 2px rgba(215,255,47,0.25), 0 0 16px rgba(215,255,47,0.35);
+  z-index: 5;
+}
+
+.citrus-button {
+  background: #1a1c22;
+  border: 1px solid #b9ff2a;
+  color: var(--citrus-accent);
+}
+
+/* Utility: remove borders when needed (for sidebars) */
+.no-border { border: 0 !important; }
+
+/* Rail icon centering for closed sidebars */
+.rail-icon {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Unified control pills */
+.control-group { display: flex; align-items: center; gap: 8px; }
+.pill {
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 9999px;
+  border: 1px solid rgba(215,255,47,0.6);
+  background: rgba(0,0,0,0.35);
+  color: #e5e7eb;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.pill:hover { background: rgba(0,0,0,0.45); }
+.pill-accent { background: var(--citrus-accent); color: #000; border-color: var(--citrus-accent); }
+.pill-disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Segmented control for Auto/Manual */
+.segment-group {
+  display: inline-flex;
+  border: 1px solid rgba(215,255,47,0.6);
+  background: rgba(0,0,0,0.35);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.segment {
+  height: 28px;
+  padding: 0 12px;
+  font-size: 12px;
+  color: #e5e7eb;
+  display: inline-flex;
+  align-items: center;
+}
+.segment + .segment { border-left: 1px solid rgba(215,255,47,0.3); }
+.segment-active { background: var(--citrus-accent); color: #000; }
+
+/* History panel visuals (expanded left sidebar) */
+.history-panel {
+  border: 2px solid rgba(215,255,47,0.85);
+  border-radius: 12px;
+  background: rgba(0,0,0,0.25);
+  overflow: auto;
+}
+
+/* Enhanced scrollbar for history panel */
+.history-panel::-webkit-scrollbar {
+  width: 10px;
+}
+.history-panel::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(215,255,47,0.35), rgba(215,255,47,0.15));
+  border-radius: 8px;
+}
+.history-panel::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+
+.history-panel.dragging { cursor: grabbing; }
+
+.history-item-bg {
+  background: rgba(0,0,0,0.35);
+}
+
+/* Closed templates placeholder */
+.templates-closed {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--citrus-border);
+  background: rgba(0,0,0,0.55);
+}
+
+/* With-image background wrapper */
+.citrus-with-image {
+  position: relative;
+}
+
+/* Use actual background image placed in /public (themeimg1.png) */
+.citrus-with-image-image {
+  background-image: url('/themeimg1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Soft neon vignette overlay matching the mock */
+.citrus-with-image:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: none; /* remove overlay for clarity */
+  pointer-events: none;
+}
+
+/* Without-image background */
+.citrus-no-image {
+  background: var(--citrus-bg);
+}
+
+/* Glow ring utility to mimic neon outline */
+.glow-ring { box-shadow: none; }
+
+/* Custom styles */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Animation for loading dots */
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* Drawer animations */
+.drawer-enter {
+  transform: translateX(-100%);
+}
+
+.drawer-enter-active {
+  transform: translateX(0);
+  transition: transform 300ms ease-in-out;
+}
+
+.drawer-exit {
+  transform: translateX(0);
+}
+
+.drawer-exit-active {
+  transform: translateX(-100%);
+  transition: transform 300ms ease-in-out;
+}
+
+.drawer-right-enter {
+  transform: translateX(100%);
+}
+
+.drawer-right-enter-active {
+  transform: translateX(0);
+  transition: transform 300ms ease-in-out;
+}
+
+.drawer-right-exit {
+  transform: translateX(0);
+}
+
+.drawer-right-exit-active {
+  transform: translateX(100%);
+  transition: transform 300ms ease-in-out;
+}
+
+/* Preview functionality styles */
+.preview-overlay {
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.preview-expanded {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+  border: 2px solid rgba(215, 255, 47, 0.85);
+  box-shadow: 
+    0 0 0 1px rgba(215, 255, 47, 0.45) inset,
+    0 0 0 2px rgba(215, 255, 47, 0.25),
+    0 0 32px rgba(215, 255, 47, 0.35),
+    0 0 64px rgba(215, 255, 47, 0.18);
+}
+
+/* Code input styling */
+.code-input {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* Folder structure styling */
+.folder-structure {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: pre;
+}
+
+/* Pasted indicator */
+.pasted-indicator {
+  background: rgba(34, 197, 94, 0.2);
+  color: rgb(34, 197, 94);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Enhanced button styles */
+.citrus-button-enhanced {
+  background: linear-gradient(135deg, rgba(215, 255, 47, 0.1), rgba(215, 255, 47, 0.05));
+  border: 1px solid rgba(215, 255, 47, 0.6);
+  color: var(--citrus-accent);
+  transition: all 0.2s ease;
+}
+
+.citrus-button-enhanced:hover {
+  background: linear-gradient(135deg, rgba(215, 255, 47, 0.2), rgba(215, 255, 47, 0.1));
+  border-color: rgba(215, 255, 47, 0.8);
+  box-shadow: 0 0 12px rgba(215, 255, 47, 0.3);
+}
+
+/* Project Context button styling */
+/* Buttons: default text is neon, active state is yellow bg with black text */
+.sidebar-action-default { color: var(--citrus-accent); }
+.sidebar-action-active { background: var(--citrus-accent); color: #000; }
+
+/* Template button styling */
+.template-button {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(215, 255, 47, 0.6);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.template-button:hover {
+  background: rgba(215, 255, 47, 0.1);
+  border-color: rgba(215, 255, 47, 0.8);
+  box-shadow: 0 0 12px rgba(215, 255, 47, 0.2);
+}
+
+.template-button.active {
+  background: rgba(215, 255, 47, 0.2);
+  border-color: var(--citrus-accent);
+  box-shadow: 0 0 16px rgba(215, 255, 47, 0.3);
+}
+
+/* Final prompt display styling */
+.final-prompt-display {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(215, 255, 47, 0.85);
+  border-radius: 1.5rem;
+  box-shadow: 
+    0 0 0 1px rgba(215, 255, 47, 0.45) inset,
+    0 0 0 2px rgba(215, 255, 47, 0.25),
+    0 0 32px rgba(215, 255, 47, 0.35),
+    0 0 64px rgba(215, 255, 47, 0.18);
+}
+
+.final-prompt-content {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  max-height: 28rem;
+  overflow-y: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  color: #d1d5db;
+}
+
+/* Input area styling improvements */
+.input-area-enhanced {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(215, 255, 47, 0.85);
+  border-radius: 1.5rem;
+  box-shadow: 
+    0 0 0 1px rgba(215, 255, 47, 0.45) inset,
+    0 0 0 2px rgba(215, 255, 47, 0.25),
+    0 0 32px rgba(215, 255, 47, 0.35),
+    0 0 64px rgba(215, 255, 47, 0.18);
+}
+
+/* Code and folder input containers */
+/* Remove extra code/folder dual inputs from UI look by stacking and shrinking */
+.code-folder-container { display: none; }
+
+.code-folder-input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(215, 255, 47, 0.6);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  color: white;
+  font-size: 0.75rem;
+  resize: none;
+  height: 6rem;
+  transition: all 0.2s ease;
+}
+
+.code-folder-input:focus {
+  outline: none;
+  border-color: rgba(215, 255, 47, 0.8);
+  box-shadow: 0 0 0 1px rgba(215, 255, 47, 0.3);
+}
+
+.code-folder-input::placeholder {
+  color: rgba(156, 163, 175, 0.7);
+}
