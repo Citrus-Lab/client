@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 /* Full screen setup */
-html, body {
+html,
+body {
   width: 100%;
   height: 100vh;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #121318; /* match sidebars */
+  background-color: #121318;
+  /* match sidebars */
   position: fixed;
   top: 0;
   left: 0;
@@ -28,21 +30,27 @@ html, body {
   --citrus-border: #272a33;
   --citrus-text: #e5ffe5;
   --citrus-muted: #a4a8b3;
-  --citrus-accent: #d7ff2f; /* Neon yellow-green */
-  --citrus-accent-2: #7dffa5; /* Mint */
-  --citrus-shadow: 0 0 0 1px rgba(215,255,47,0.25), 0 0 28px rgba(215,255,47,0.08);
+  --citrus-accent: #d7ff2f;
+  /* Neon yellow-green */
+  --citrus-accent-2: #7dffa5;
+  /* Mint */
+  --citrus-shadow: 0 0 0 1px rgba(215, 255, 47, 0.25), 0 0 28px rgba(215, 255, 47, 0.08);
 }
 
 /* App container theme */
 .citrus-theme {
-  background: #121318; /* match sidebars */
+  background: #121318;
+  /* match sidebars */
   color: #e5e7eb;
 }
 
 .citrus-surface {
-  background: #121318; /* solid, no transparency */
-  border: 1px solid #b9ff2a; /* brighter */
-  box-shadow: none; /* remove glow */
+  background: #121318;
+  /* solid, no transparency */
+  border: 1px solid #b9ff2a;
+  /* brighter */
+  box-shadow: none;
+  /* remove glow */
 }
 
 .citrus-border {
@@ -58,56 +66,52 @@ html, body {
 }
 
 .citrus-pill {
-  border: 1px solid rgba(215,255,47,0.35);
-  background: rgba(215,255,47,0.06);
+  border: 1px solid rgba(215, 255, 47, 0.35);
+  background: rgba(215, 255, 47, 0.06);
   color: #d6ffe0;
 }
 
 /* New: thin neon border and subtle glow */
 .citrus-neon-border {
-  border: 1px solid rgba(215,255,47,0.6);
-  box-shadow: 0 0 0 1px rgba(215,255,47,0.25) inset, 0 0 24px rgba(215,255,47,0.18);
+  border: 1px solid rgba(215, 255, 47, 0.6);
+  box-shadow: 0 0 0 1px rgba(215, 255, 47, 0.25) inset, 0 0 24px rgba(215, 255, 47, 0.18);
 }
 
 /* Stronger neon for hero and centerpiece */
 .citrus-neon-border-strong {
-  border: 2px solid rgba(215,255,47,0.85);
-  box-shadow:
-    0 0 0 1px rgba(215,255,47,0.45) inset,
-    0 0 0 2px rgba(215,255,47,0.25),
-    0 0 32px rgba(215,255,47,0.35),
-    0 0 64px rgba(215,255,47,0.18);
+  border: 2px solid rgba(215, 255, 47, 0.85);
+  box-shadow: none;
 }
 
 /* New: main rounded stage container */
 .citrus-stage {
   border-radius: 14px;
-  background: linear-gradient(180deg, rgba(18,19,24,0.85), rgba(10,11,14,0.85));
-  border: 1px solid rgba(215,255,47,0.25);
-  box-shadow: 0 0 28px rgba(215,255,47,0.10);
+  background: linear-gradient(180deg, rgba(18, 19, 24, 0.85), rgba(10, 11, 14, 0.85));
+  border: 1px solid rgba(215, 255, 47, 0.25);
+  box-shadow: 0 0 28px rgba(215, 255, 47, 0.10);
 }
 
 /* New: hero header pill */
 .citrus-hero-pill {
   border-radius: 12px;
-  background: rgba(0,0,0,0.6);
-  border: 1px solid rgba(215,255,47,0.6);
-  box-shadow: 0 0 0 1px rgba(215,255,47,0.25) inset, 0 0 18px rgba(215,255,47,0.15);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(215, 255, 47, 0.6);
+  box-shadow: 0 0 0 1px rgba(215, 255, 47, 0.25) inset, 0 0 18px rgba(215, 255, 47, 0.15);
 }
 
 /* New header bar: only bottom neon border, connects to edges */
 .citrus-header-bar {
   background: transparent;
-  border-bottom: 2px solid rgba(215,255,47,0.85);
+  border-bottom: 2px solid rgba(215, 255, 47, 0.85);
   box-shadow: none;
 }
 
 /* Express capsule input */
 .citrus-express-capsule {
   border-radius: 12px;
-  background: rgba(0,0,0,0.8);
-  border: 1px solid rgba(215,255,47,0.6);
-  box-shadow: 0 0 0 1px rgba(215,255,47,0.25) inset, 0 0 18px rgba(215,255,47,0.12);
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(215, 255, 47, 0.6);
+  box-shadow: none;
 }
 
 .citrus-send-fab {
@@ -120,7 +124,7 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 0 2px rgba(215,255,47,0.25), 0 0 16px rgba(215,255,47,0.35);
+  box-shadow: 0 0 0 2px rgba(215, 255, 47, 0.25), 0 0 16px rgba(215, 255, 47, 0.35);
   z-index: 5;
 }
 
@@ -131,43 +135,319 @@ html, body {
 }
 
 /* Utility: remove borders when needed (for sidebars) */
-.no-border { border: 0 !important; }
+.no-border {
+  border: 0 !important;
+}
 
 /* Rail icon centering for closed sidebars */
 .rail-icon {
-  width: 40px;
-  height: 40px;
+  width: 56px;
+  height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: 0 14px;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rail-icon:hover {
+  background: rgba(215, 255, 47, 0.1);
+  border-color: rgba(215, 255, 47, 0.8);
+  box-shadow: 0 0 12px rgba(215, 255, 47, 0.2);
+}
+
+/* Professional profile button styling */
+.profile-circle {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-circle:hover {
+  transform: scale(1.05);
+  border-color: rgba(215, 255, 47, 0.3);
+  box-shadow: 0 0 16px rgba(215, 255, 47, 0.2);
+}
+
+/* Enhanced button spacing and sizing */
+.sidebar-button-enhanced {
+  min-height: 48px;
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-button-enhanced:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(215, 255, 47, 0.15);
+}
+
+/* Professional icon button effects */
+.icon-button-enhanced {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-button-enhanced:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 16px rgba(215, 255, 47, 0.25);
+}
+
+.icon-button-enhanced:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(215, 255, 47, 0.1);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Chat history micro-interactions */
+.chat-history-item {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.chat-history-item:hover {
+  transform: translateX(2px);
+}
+
+.chat-history-item:active {
+  transform: translateX(1px) scale(0.98);
+}
+
+.chat-history-title {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  transition: all 0.2s ease;
+}
+
+.chat-history-title:hover {
+  color: rgba(215, 255, 47, 0.9);
+}
+
+.delete-button-micro {
+  transition: all 0.15s ease;
+  border-radius: 4px;
+  padding: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.delete-button-micro:hover {
+  background: rgba(239, 68, 68, 0.2);
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+}
+
+.delete-button-micro:active {
+  transform: scale(0.95);
+}
+
+.delete-button-micro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.2), transparent);
+  transition: left 0.3s ease;
+}
+
+.delete-button-micro:hover::before {
+  left: 100%;
+}
+
+/* Enhanced chat history item selection */
+.chat-history-item.active {
+  background: linear-gradient(135deg, rgba(215, 255, 47, 0.1), rgba(215, 255, 47, 0.05));
+  border-color: rgba(215, 255, 47, 0.6);
+  box-shadow: 0 0 12px rgba(215, 255, 47, 0.2);
+}
+
+/* Fire button fiery hover effect */
+.fire-button {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #eab308, #f97316) !important;
+}
+
+.fire-button:hover {
+  background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
+  transform: scale(1.05);
+  box-shadow: 0 0 16px rgba(249, 115, 22, 0.6);
+}
+
+.fire-button:active {
+  transform: scale(0.95);
+}
+
+.fire-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.4s ease;
+}
+
+.fire-button:hover::before {
+  left: 100%;
+}
+
+/* Project context delete button micro-interactions */
+.project-delete-button {
+  transition: all 0.15s ease;
+  border-radius: 4px;
+  padding: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-delete-button:hover {
+  background: rgba(239, 68, 68, 0.2);
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+  color: #fca5a5 !important;
+}
+
+.project-delete-button:active {
+  transform: scale(0.95);
+}
+
+.project-delete-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.2), transparent);
+  transition: left 0.3s ease;
+}
+
+.project-delete-button:hover::before {
+  left: 100%;
+}
+
+/* Project context item hover effects (similar to chat history) */
+.project-context-item {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.project-context-item:hover {
+  transform: translateX(2px);
+}
+
+.project-context-item:active {
+  transform: translateX(1px) scale(0.98);
+}
+
+/* Template item hover effects (similar to chat history) */
+.template-item {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.template-item:hover {
+  transform: translateX(2px);
+}
+
+.template-item:active {
+  transform: translateX(1px) scale(0.98);
+}
+
+/* Template title hover effect */
+.template-title:hover {
+  color: rgba(215, 255, 47, 0.9);
+}
+
+/* New button micro-interactions */
+.new-button {
+  transition: all 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.new-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(215, 255, 47, 0.4);
+}
+
+.new-button:active {
+  transform: scale(0.95);
+}
+
+.new-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.3s ease;
+}
+
+.new-button:hover::before {
+  left: 100%;
 }
 
 /* Unified control pills */
-.control-group { display: flex; align-items: center; gap: 8px; }
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .pill {
   height: 28px;
   padding: 0 10px;
   border-radius: 9999px;
-  border: 1px solid rgba(215,255,47,0.6);
-  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(215, 255, 47, 0.6);
+  background: rgba(0, 0, 0, 0.35);
   color: #e5e7eb;
   font-size: 12px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
-.pill:hover { background: rgba(0,0,0,0.45); }
-.pill-accent { background: var(--citrus-accent); color: #000; border-color: var(--citrus-accent); }
-.pill-disabled { opacity: 0.6; cursor: not-allowed; }
+
+.pill:hover {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.pill-accent {
+  background: var(--citrus-accent);
+  color: #000;
+  border-color: var(--citrus-accent);
+}
+
+.pill-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
 /* Segmented control for Auto/Manual */
 .segment-group {
   display: inline-flex;
-  border: 1px solid rgba(215,255,47,0.6);
-  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(215, 255, 47, 0.6);
+  background: rgba(0, 0, 0, 0.35);
   border-radius: 9999px;
   overflow: hidden;
 }
+
 .segment {
   height: 28px;
   padding: 0 12px;
@@ -176,33 +456,29 @@ html, body {
   display: inline-flex;
   align-items: center;
 }
-.segment + .segment { border-left: 1px solid rgba(215,255,47,0.3); }
-.segment-active { background: var(--citrus-accent); color: #000; }
+
+.segment+.segment {
+  border-left: 1px solid rgba(215, 255, 47, 0.3);
+}
+
+.segment-active {
+  background: var(--citrus-accent);
+  color: #000;
+}
 
 /* History panel visuals (expanded left sidebar) */
 .history-panel {
-  border: 2px solid rgba(215,255,47,0.85);
+  border: 2px solid rgba(215, 255, 47, 0.85);
   border-radius: 12px;
-  background: rgba(0,0,0,0.25);
-  overflow: auto;
+  background: rgba(0, 0, 0, 0.25);
 }
 
-/* Enhanced scrollbar for history panel */
-.history-panel::-webkit-scrollbar {
-  width: 10px;
+.history-panel.dragging {
+  cursor: grabbing;
 }
-.history-panel::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(215,255,47,0.35), rgba(215,255,47,0.15));
-  border-radius: 8px;
-}
-.history-panel::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.2);
-}
-
-.history-panel.dragging { cursor: grabbing; }
 
 .history-item-bg {
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.35);
 }
 
 /* Closed templates placeholder */
@@ -211,7 +487,7 @@ html, body {
   height: 40px;
   border-radius: 8px;
   border: 1px solid var(--citrus-border);
-  background: rgba(0,0,0,0.55);
+  background: rgba(0, 0, 0, 0.55);
 }
 
 /* With-image background wrapper */
@@ -232,7 +508,8 @@ html, body {
   content: "";
   position: absolute;
   inset: 0;
-  background: none; /* remove overlay for clarity */
+  background: none;
+  /* remove overlay for clarity */
   pointer-events: none;
 }
 
@@ -242,12 +519,39 @@ html, body {
 }
 
 /* Glow ring utility to mimic neon outline */
-.glow-ring { box-shadow: none; }
+.glow-ring {
+  box-shadow: none;
+}
 
 /* Custom styles */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-6 {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-8 {
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-10 {
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  line-clamp: 10;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -273,9 +577,13 @@ html, body {
 
 /* Animation for loading dots */
 @keyframes bounce {
-  0%, 80%, 100% {
+
+  0%,
+  80%,
+  100% {
     transform: scale(0);
   }
+
   40% {
     transform: scale(1);
   }
@@ -335,7 +643,7 @@ html, body {
   backdrop-filter: blur(12px);
   border-radius: 1.5rem;
   border: 2px solid rgba(215, 255, 47, 0.85);
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(215, 255, 47, 0.45) inset,
     0 0 0 2px rgba(215, 255, 47, 0.25),
     0 0 32px rgba(215, 255, 47, 0.35),
@@ -383,8 +691,14 @@ html, body {
 
 /* Project Context button styling */
 /* Buttons: default text is neon, active state is yellow bg with black text */
-.sidebar-action-default { color: var(--citrus-accent); }
-.sidebar-action-active { background: var(--citrus-accent); color: #000; }
+.sidebar-action-default {
+  color: var(--citrus-accent);
+}
+
+.sidebar-action-active {
+  background: var(--citrus-accent);
+  color: #000;
+}
 
 /* Template button styling */
 .template-button {
@@ -411,7 +725,7 @@ html, body {
   background: rgba(0, 0, 0, 0.6);
   border: 2px solid rgba(215, 255, 47, 0.85);
   border-radius: 1.5rem;
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(215, 255, 47, 0.45) inset,
     0 0 0 2px rgba(215, 255, 47, 0.25),
     0 0 32px rgba(215, 255, 47, 0.35),
@@ -436,7 +750,7 @@ html, body {
   background: rgba(0, 0, 0, 0.6);
   border: 2px solid rgba(215, 255, 47, 0.85);
   border-radius: 1.5rem;
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(215, 255, 47, 0.45) inset,
     0 0 0 2px rgba(215, 255, 47, 0.25),
     0 0 32px rgba(215, 255, 47, 0.35),
@@ -445,7 +759,9 @@ html, body {
 
 /* Code and folder input containers */
 /* Remove extra code/folder dual inputs from UI look by stacking and shrinking */
-.code-folder-container { display: none; }
+.code-folder-container {
+  display: none;
+}
 
 .code-folder-input {
   background: rgba(0, 0, 0, 0.3);
@@ -467,4 +783,1802 @@ html, body {
 
 .code-folder-input::placeholder {
   color: rgba(156, 163, 175, 0.7);
+}
+
+/* History scrollbar - always visible and prominent */
+.history-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(215, 255, 47, 0.4) rgba(0, 0, 0, 0.2);
+  transition: scrollbar-color 0.3s ease;
+  scroll-behavior: smooth;
+  overflow-x: hidden !important;
+  scrollbar-gutter: stable;
+}
+
+.history-scrollbar:hover {
+  scrollbar-color: rgba(215, 255, 47, 0.5) rgba(0, 0, 0, 0.3);
+}
+
+.history-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.history-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.history-scrollbar:hover::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.history-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(215, 255, 47, 0.6);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+  border: 1px solid rgba(215, 255, 47, 0.3);
+  min-height: 20px;
+}
+
+.history-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: rgba(215, 255, 47, 0.5);
+  border-color: rgba(215, 255, 47, 0.3);
+}
+
+.history-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(215, 255, 47, 0.7);
+  border-color: rgba(215, 255, 47, 0.5);
+}
+
+/* Hide horizontal scrollbar completely */
+.history-scrollbar::-webkit-scrollbar:horizontal {
+  display: none;
+}
+
+/* Scroll indicator with blink animation */
+.scroll-indicator {
+  animation: blinkIndicator 2s ease-in-out infinite;
+}
+
+@keyframes blinkIndicator {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Square input styling for chat interface */
+.square-input {
+  border-radius: 0.5rem;
+  /* More square-like than rounded-xl */
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(215, 255, 47, 0.6);
+  transition: all 0.2s ease;
+}
+
+.square-input:focus {
+  border-color: rgba(215, 255, 47, 0.8);
+  box-shadow: 0 0 0 1px rgba(215, 255, 47, 0.3);
+}
+
+/* Enhanced layout for bottom input form */
+.bottom-input-form {
+  background: transparent;
+}
+
+/* Model selector styling improvements */
+.model-selector-button {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(215, 255, 47, 0.6);
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.model-selector-button:hover {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(215, 255, 47, 0.8);
+}
+
+/* Active chat search bar styling */
+.citrus-search-bar-active {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(215, 255, 47, 0.85);
+  box-shadow:
+    0 0 0 1px rgba(215, 255, 47, 0.45) inset,
+    0 0 0 2px rgba(215, 255, 47, 0.25),
+    0 0 32px rgba(215, 255, 47, 0.35),
+    0 0 64px rgba(215, 255, 47, 0.18);
+  transition: all 0.3s ease;
+}
+
+/* Compact search bar styling for fewer words */
+.citrus-search-bar-compact {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(215, 255, 47, 0.6);
+  box-shadow:
+    0 0 0 1px rgba(215, 255, 47, 0.25) inset,
+    0 0 16px rgba(215, 255, 47, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Custom scrollbar for textarea */
+.citrus-search-bar-active textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.citrus-search-bar-active textarea::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.citrus-search-bar-active textarea::-webkit-scrollbar-thumb {
+  background: rgba(215, 255, 47, 0.4);
+  border-radius: 3px;
+}
+
+.citrus-search-bar-active textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(215, 255, 47, 0.6);
+}
+
+/* Tailwind scrollbar utilities */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thumb-gray-600 {
+  scrollbar-color: rgba(215, 255, 47, 0.4) transparent;
+}
+
+.scrollbar-track-transparent {
+  scrollbar-color: rgba(215, 255, 47, 0.4) transparent;
+}
+
+/* Enhanced dynamic search bar transitions */
+.dynamic-search-container {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dynamic-search-textarea {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-property: min-height, max-height, font-size, padding;
+}
+
+/* Smooth height transitions for search bar states */
+.search-bar-empty {
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.search-bar-compact {
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.search-bar-medium {
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.search-bar-expanded {
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Smooth border and shadow transitions */
+.search-bar-transition {
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    min-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.4s ease;
+}
+
+/* Smooth position transition for search bar container */
+.search-bar-container-transition {
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Fire hover effect for project context items */
+.fire-hover-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.fire-hover-effect:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(215, 255, 47, 0.1),
+      rgba(215, 255, 47, 0.15),
+      rgba(215, 255, 47, 0.1),
+      transparent);
+  animation: fireFlicker 1.5s ease-in-out infinite;
+}
+
+@keyframes fireFlicker {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+
+  50% {
+    left: 0%;
+    opacity: 1;
+  }
+
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* Micro Interactions for Share Button and Collaboration */
+.share-button-micro {
+  position: relative;
+  overflow: hidden;
+}
+
+.share-button-micro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.share-button-micro:hover::before {
+  left: 100%;
+}
+
+/* Collaboration Panel Animations */
+.collab-panel-enter {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+}
+
+.collab-panel-enter-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: all 0.2s ease-out;
+}
+
+.collab-panel-exit {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.collab-panel-exit-active {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+  transition: all 0.15s ease-in;
+}
+
+/* WhatsApp-like Chat Animations */
+.chat-message-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.chat-message-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s ease-out;
+}
+
+/* People List Hover Effects */
+.people-item {
+  transition: all 0.2s ease;
+}
+
+.people-item:hover {
+  transform: translateX(4px);
+  background-color: rgba(215, 255, 47, 0.05);
+}
+
+/* Settings Button Micro Interactions */
+.settings-button {
+  transition: all 0.2s ease;
+}
+
+.settings-button:hover {
+  transform: rotate(90deg);
+}
+
+/* Typing Indicator Animation */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.typing-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #d7ff2f;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes typing {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Online Status Pulse */
+.online-pulse {
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+/* Role Badge Animations */
+.role-badge {
+  transition: all 0.2s ease;
+}
+
+.role-badge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(215, 255, 47, 0.3);
+}
+
+/* Access Management Hover Effects */
+.access-item {
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.access-item:hover {
+  border-left-color: #d7ff2f;
+  background-color: rgba(215, 255, 47, 0.05);
+  transform: translateX(2px);
+}
+
+/* Smooth Transitions for View Changes */
+.view-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.view-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.view-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.view-exit-active {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+/* M
+odern Collaboration Panel Styles */
+.collaboration-panel {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Enhanced Slider Animation */
+.slider-background {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(215, 255, 47, 0.3);
+}
+
+/* Modern Button Hover Effects */
+.modern-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.modern-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.modern-button:hover::before {
+  left: 100%;
+}
+
+.modern-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(215, 255, 47, 0.2);
+}
+
+/* Avatar Hover Effects */
+.avatar-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.avatar-hover:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Message Bubble Animations */
+.message-bubble {
+  animation: messageSlideIn 0.3s ease-out;
+  transform-origin: bottom;
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Enhanced Online Status */
+.online-status {
+  animation: onlinePulse 2s infinite;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+}
+
+@keyframes onlinePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+/* Typing Indicator Enhanced */
+.typing-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.typing-dot-enhanced {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #d7ff2f, #a3d216);
+  animation: typingBounce 1.4s infinite ease-in-out;
+}
+
+.typing-dot-enhanced:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-dot-enhanced:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes typingBounce {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Settings Toggle Switch */
+.toggle-switch {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.toggle-switch:hover {
+  box-shadow: 0 0 20px rgba(215, 255, 47, 0.3);
+}
+
+.toggle-knob {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Gradient Text Effects */
+.gradient-text {
+  background: linear-gradient(135deg, #d7ff2f, #a3d216);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Enhanced Scrollbar */
+.modern-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modern-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.modern-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #d7ff2f, #a3d216);
+  border-radius: 3px;
+}
+
+.modern-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #a3d216, #d7ff2f);
+}
+
+/* Card Hover Effects */
+.collaboration-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.collaboration-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(215, 255, 47, 0.3);
+  box-shadow: 0 12px 40px rgba(215, 255, 47, 0.1);
+}
+
+/* Input Focus Effects */
+.modern-input {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.modern-input:focus {
+  box-shadow: 0 0 0 3px rgba(215, 255, 47, 0.2);
+  transform: scale(1.02);
+}
+
+/* Role Badge Animations */
+.role-badge {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.role-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.role-badge:hover::before {
+  left: 100%;
+}
+
+.role-badge:hover {
+  transform: scale(1.05);
+}
+
+/* Navigation Button Effects */
+.nav-button {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-button:hover {
+  transform: scale(1.05);
+}
+
+.nav-button.active {
+  transform: scale(1.1);
+}
+
+/* Backdrop Blur Enhancement */
+.enhanced-backdrop {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* Floating Action Button */
+.fab {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(215, 255, 47, 0.3);
+}
+
+.fab:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 30px rgba(215, 255, 47, 0.4);
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+/* Stagger Animation for Lists */
+.stagger-item {
+  animation: staggerIn 0.5s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stagger-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.stagger-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.stagger-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.stagger-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.stagger-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+@keyframes staggerIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhan
+ced Collaboration Panel Styles */
+.collaboration-panel {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Micro-interactions and animations */
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%,
+  43% {
+    transform: translate3d(0, -8px, 0);
+  }
+
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+.animate-in {
+  animation: slideInFromTop 0.2s ease-out;
+}
+
+.slide-in-from-top-2 {
+  animation: slideInFromTop 0.2s ease-out;
+}
+
+.zoom-in-95 {
+  animation: zoomIn 0.2s ease-out;
+}
+
+/* Online status pulse */
+.online-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* People item hover effects */
+.people-item {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.people-item:hover {
+  transform: translateX(2px);
+  box-shadow: 0 4px 12px rgba(215, 255, 47, 0.1);
+}
+
+/* Settings button rotation */
+.settings-button:hover {
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}
+
+/* Access item hover effects */
+.access-item {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.access-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(215, 255, 47, 0.15);
+}
+
+/* Enhanced button hover effects */
+.btn-hover-lift {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-hover-lift:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Typing indicator animation */
+.typing-indicator {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.typing-dot {
+  width: 4px;
+  height: 4px;
+  background-color: #9ca3af;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+/* Message bubble animations */
+.message-bubble {
+  transition: all 0.2s ease;
+}
+
+.message-bubble:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced scrollbar */
+.collaboration-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.collaboration-panel::-webkit-scrollbar-track {
+  background: rgba(215, 255, 47, 0.1);
+  border-radius: 2px;
+}
+
+.collaboration-panel::-webkit-scrollbar-thumb {
+  background: rgba(215, 255, 47, 0.3);
+  border-radius: 2px;
+}
+
+.collaboration-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(215, 255, 47, 0.5);
+}
+
+/* Enhanced focus states */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(215, 255, 47, 0.5);
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, #d7ff2f, #7dffa5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Enhanced card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(215, 255, 47, 0.15);
+}
+
+/* Icon hover animations */
+.icon-hover {
+  transition: all 0.2s ease;
+}
+
+.icon-hover:hover {
+  transform: scale(1.1);
+}
+
+/* Status indicator styles */
+.status-online {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
+.status-away {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+
+.status-offline {
+  background: linear-gradient(135deg, #6b7280, #9ca3af);
+}
+
+/* Enhanced toggle switch */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #374151;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input:checked+.toggle-slider {
+  background-color: #d7ff2f;
+}
+
+input:checked+.toggle-slider:before {
+  transform: translateX(24px);
+}
+
+/* Loading spinner */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(215, 255, 47, 0.3);
+  border-top: 2px solid #d7ff2f;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Enhanced modal backdrop */
+.modal-backdrop {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Notification badge */
+.notification-badge {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+  animation: pulse 2s infinite;
+}
+
+/* Enhanced button states */
+.btn-primary {
+  background: linear-gradient(135deg, #d7ff2f, #7dffa5);
+  color: #000;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(215, 255, 47, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(215, 255, 47, 0.2);
+}
+
+/* Enhanced input focus */
+.input-enhanced:focus {
+  border-color: #d7ff2f;
+  box-shadow: 0 0 0 3px rgba(215, 255, 47, 0.1);
+  transform: scale(1.01);
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* 
+Enhanced Chat Message Styling */
+.chat-message-container {
+  transition: all 0.2s ease;
+}
+
+.chat-message-container:hover {
+  transform: translateY(-1px);
+}
+
+/* User message bubble styling */
+.user-message-bubble {
+  background: linear-gradient(135deg, #d7ff2f 0%, #b8e025 100%);
+  color: #000;
+  border-radius: 18px 18px 4px 18px;
+  box-shadow: 0 4px 12px rgba(215, 255, 47, 0.25);
+  transition: all 0.2s ease;
+}
+
+.user-message-bubble:hover {
+  box-shadow: 0 6px 20px rgba(215, 255, 47, 0.35);
+  transform: translateY(-1px);
+}
+
+/* AI message bubble styling */
+.ai-message-bubble {
+  background: rgba(42, 47, 26, 0.8);
+  border: 1px solid rgba(215, 255, 47, 0.15);
+  border-radius: 18px 18px 18px 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.ai-message-bubble:hover {
+  border-color: rgba(215, 255, 47, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.ai-message-bubble.code-message {
+  background: rgba(26, 31, 10, 0.9);
+  border-color: rgba(215, 255, 47, 0.2);
+}
+
+.ai-message-bubble.error-message {
+  background: rgba(45, 15, 15, 0.8);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* Message action buttons */
+.message-actions {
+  opacity: 0;
+  transform: translateX(8px);
+  transition: all 0.2s ease;
+}
+
+.chat-message-container:hover .message-actions {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.message-action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.message-action-btn:hover {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(215, 255, 47, 0.3);
+  transform: scale(1.1);
+}
+
+.message-action-btn:active {
+  transform: scale(0.95);
+}
+
+/* Model icon styling */
+.model-icon {
+  transition: all 0.2s ease;
+}
+
+.model-icon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Message timestamp styling */
+.message-timestamp {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.chat-message-container:hover .message-timestamp {
+  opacity: 1;
+}
+
+/* Code block styling */
+.code-block-header {
+  background: rgba(215, 255, 47, 0.05);
+  border-bottom: 1px solid rgba(215, 255, 47, 0.1);
+  padding: 8px 16px;
+  border-radius: 8px 8px 0 0;
+}
+
+.code-block-content {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  border-radius: 0 0 8px 8px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+.code-block-content::-webkit-scrollbar {
+  height: 6px;
+}
+
+.code-block-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.code-block-content::-webkit-scrollbar-thumb {
+  background: rgba(215, 255, 47, 0.3);
+  border-radius: 3px;
+}
+
+/* Copy button styling */
+.copy-button {
+  background: rgba(215, 255, 47, 0.1);
+  border: 1px solid rgba(215, 255, 47, 0.2);
+  color: #d7ff2f;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  background: rgba(215, 255, 47, 0.2);
+  border-color: rgba(215, 255, 47, 0.4);
+  transform: translateY(-1px);
+}
+
+.copy-button.copied {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: rgba(34, 197, 94, 0.4);
+  color: #22c55e;
+}
+
+/* Edit mode styling */
+.edit-textarea {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  color: #000;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+  transition: all 0.2s ease;
+}
+
+.edit-textarea:focus {
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.edit-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.edit-btn-cancel {
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.edit-btn-cancel:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.edit-btn-save {
+  background: rgba(0, 0, 0, 0.2);
+  color: #000;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.edit-btn-save:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Long message expand/collapse */
+.expand-button {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: color 0.2s ease;
+}
+
+.expand-button:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.user-expand-button {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.user-expand-button:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+/* Quick reaction buttons */
+.quick-reactions {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.2s ease;
+}
+
+.chat-message-container:hover .quick-reactions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reaction-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.reaction-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(215, 255, 47, 0.3);
+  transform: scale(1.1);
+}
+
+/* Avatar styling */
+.user-avatar {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.ai-avatar {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.ai-avatar:hover {
+  transform: scale(1.05);
+}
+
+/* Message bubble entrance animation */
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.message-enter {
+  animation: messageSlideIn 0.3s ease-out;
+}
+
+/* Typing indicator for messages */
+.typing-indicator-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(42, 47, 26, 0.6);
+  border: 1px solid rgba(215, 255, 47, 0.1);
+  border-radius: 18px 18px 18px 4px;
+  margin-bottom: 16px;
+}
+
+.typing-dots-message {
+  display: flex;
+  gap: 4px;
+}
+
+.typing-dot-message {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d7ff2f;
+  animation: typingPulse 1.4s infinite ease-in-out;
+}
+
+.typing-dot-message:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-dot-message:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+.typing-dot-message:nth-child(3) {
+  animation-delay: 0s;
+}
+
+@keyframes typingPulse {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Message status indicators */
+.message-status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.status-icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* Enhanced hover effects for better UX */
+.message-hover-zone {
+  position: relative;
+  padding: 4px;
+  margin: -4px;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.message-hover-zone:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Professional spacing and layout */
+.message-layout {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  max-width: 100%;
+  margin-bottom: 24px;
+  padding: 0 16px;
+}
+
+.message-content-wrapper {
+  flex: 1;
+  min-width: 0;
+  max-width: 70%;
+}
+
+.message-avatar-wrapper {
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .message-layout {
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 0 12px;
+  }
+
+  .message-content-wrapper {
+    max-width: 80%;
+  }
+
+  .message-actions {
+    position: static;
+    opacity: 1;
+    transform: none;
+    margin-top: 8px;
+    justify-content: flex-end;
+  }
+}
+
+/* Prompt Generator specific styling */
+.prompt-generator-border {
+  border-image: repeating-linear-gradient(0deg,
+      rgba(215, 255, 47, 0.3) 0px,
+      rgba(215, 255, 47, 0.3) 12px,
+      transparent 12px,
+      transparent 20px) 1;
+}
+
+
+/* Compact Collaboration Panel Styles */
+.collaboration-panel-compact {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(10, 11, 14, 0.95);
+  border: 1px solid rgba(215, 255, 47, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(215, 255, 47, 0.1) inset;
+}
+
+/* Compact Avatar Styles */
+.compact-avatar {
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  transition: all 0.2s ease;
+}
+
+.compact-avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(215, 255, 47, 0.3);
+}
+
+/* Compact Button Styles */
+.compact-button {
+  padding: 4px 8px;
+  font-size: 11px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.compact-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(215, 255, 47, 0.2);
+}
+
+/* Compact Toggle Switch */
+.compact-toggle {
+  width: 32px;
+  height: 16px;
+  border-radius: 8px;
+}
+
+.compact-toggle-knob {
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  transition: transform 0.2s ease;
+}
+
+/* Compact Online Status */
+.compact-online-status {
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  animation: compactPulse 2s infinite;
+}
+
+@keyframes compactPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+/* Compact Message Bubble */
+.compact-message-bubble {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+/* Compact Input Field */
+.compact-input {
+  padding: 6px 10px;
+  font-size: 11px;
+  border-radius: 6px;
+  min-height: 28px;
+}
+
+/* Compact Scrollbar */
+.compact-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.compact-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+.compact-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(215, 255, 47, 0.4);
+  border-radius: 2px;
+}
+
+.compact-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(215, 255, 47, 0.6);
+}
+
+/* Compact Card Hover */
+.compact-card {
+  transition: all 0.2s ease;
+  border-radius: 6px;
+}
+
+.compact-card:hover {
+  transform: translateY(-1px);
+  background-color: rgba(215, 255, 47, 0.08);
+  border-color: rgba(215, 255, 47, 0.2);
+}
+
+/* Compact Icon Sizes */
+.compact-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.compact-icon-md {
+  width: 14px;
+  height: 14px;
+}
+
+/* Compact Text Sizes */
+.compact-text-xs {
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.compact-text-sm {
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+/* Compact Spacing */
+.compact-gap-1 {
+  gap: 4px;
+}
+
+.compact-gap-2 {
+  gap: 6px;
+}
+
+.compact-p-1 {
+  padding: 4px;
+}
+
+.compact-p-2 {
+  padding: 6px;
+}
+
+.compact-px-2 {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.compact-py-1 {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* Compact Modal */
+.compact-modal {
+  max-width: 320px;
+  border-radius: 8px;
+}
+
+/* Compact Navigation */
+.compact-nav-button {
+  padding: 4px 8px;
+  font-size: 10px;
+  border-radius: 4px;
+}
+
+.compact-nav-button.active {
+  background: #d7ff2f;
+  color: #000;
+  font-weight: 600;
+}
+
+/* Compact Role Badge */
+.compact-role-badge {
+  padding: 2px 6px;
+  font-size: 9px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Compact Loading Spinner */
+.compact-spinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-top: 2px solid #000;
+  border-radius: 50%;
+  animation: compactSpin 1s linear infinite;
+}
+
+@keyframes compactSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Compact Fade In Animation */
+.compact-fade-in {
+  animation: compactFadeIn 0.2s ease-out;
+}
+
+@keyframes compactFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Compact Slide In Animation */
+.compact-slide-in {
+  animation: compactSlideIn 0.3s ease-out;
+}
+
+@keyframes compactSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* H
+ide Scrollbar Utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  /* Safari and Chrome */
+}
+
+/* Custom Scrollbar for Collaboration Panel */
+.collaboration-panel-compact::-webkit-scrollbar {
+  width: 4px;
+}
+
+.collaboration-panel-compact::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.collaboration-panel-compact::-webkit-scrollbar-thumb {
+  background: rgba(215, 255, 47, 0.2);
+  border-radius: 2px;
+}
+
+.collaboration-panel-compact::-webkit-scrollbar-thumb:hover {
+  background: rgba(215, 255, 47, 0.3);
+}
+
+/* En
+hanced Collaboration Panel Compact Styles */
+.collaboration-panel-compact {
+  min-height: 600px !important;
+  height: 600px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.collaboration-panel-compact .flex-1 {
+  flex: 1 !important;
+  min-height: 0 !important;
+}
+
+/* Ensure content area is always visible */
+.collaboration-panel-compact>div:last-child {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 400px !important;
+}
+
+/* Make People view always visible */
+.collaboration-panel-compact [data-view="people"] {
+  min-height: 350px !important;
+  background: rgba(42, 47, 58, 0.6) !important;
+  border: 2px solid rgba(215, 255, 47, 0.3) !important;
+}
+
+/* Active Now header visibility */
+.collaboration-panel-compact .active-now-header {
+  background: rgba(26, 31, 42, 0.9) !important;
+  border-bottom: 2px solid rgba(215, 255, 47, 0.5) !important;
+  min-height: 60px !important;
+}
+
+/* Users list visibility */
+.collaboration-panel-compact .users-list {
+  min-height: 280px !important;
+  background: rgba(42, 47, 58, 0.5) !important;
+  border: 2px solid rgba(215, 255, 47, 0.2) !important;
+}
+
+/* Empty state visibility */
+.collaboration-panel-compact .empty-state {
+  min-height: 200px !important;
+  background: rgba(26, 31, 42, 0.4) !important;
+  border: 2px solid rgba(215, 255, 47, 0.2) !important;
+  margin: 8px !important;
+  border-radius: 8px !important;
+  padding: 48px 16px !important;
 }

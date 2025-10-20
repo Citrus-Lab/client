@@ -14,6 +14,7 @@ export const API_CONFIG = {
 const apiClient = axios.create({
     baseURL: API_CONFIG.baseURL,
     timeout: API_CONFIG.timeout,
+    withCredentials: true, // Include cookies for authentication
     headers: {
         'Content-Type': 'application/json',
     },
@@ -238,6 +239,166 @@ export const api = {
                 return response.data
             } catch (error) {
                 throw new Error(error.response?.data?.message || 'Failed to save as template')
+            }
+        }
+    },
+
+    // Prompt Generator Chat APIs
+    promptGeneratorChat: {
+        // Get or create active session
+        getActiveSession: async (sessionId) => {
+            try {
+                const response = await apiClient.get(`/api/prompt-generator-chat/active?sessionId=${sessionId}`)
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to get active session')
+            }
+        },
+
+        // Save session state
+        saveSession: async (sessionData) => {
+            try {
+                const response = await apiClient.post('/api/prompt-generator-chat/save', sessionData)
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to save session')
+            }
+        },
+
+        // Reset session
+        resetSession: async (currentSessionId) => {
+            try {
+                const response = await apiClient.post('/api/prompt-generator-chat/reset', {
+                    currentSessionId
+                })
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to reset session')
+            }
+        },
+
+        // Get session history
+        getHistory: async (params = {}) => {
+            try {
+                const response = await apiClient.get('/api/prompt-generator-chat/history', { params })
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to get session history')
+            }
+        },
+
+        // Get session by ID
+        getSessionById: async (sessionId) => {
+            try {
+                const response = await apiClient.get(`/api/prompt-generator-chat/${sessionId}`)
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to get session')
+            }
+        },
+
+        // Delete session
+        deleteSession: async (sessionId) => {
+            try {
+                const response = await apiClient.delete(`/api/prompt-generator-chat/${sessionId}`)
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to delete session')
+            }
+        },
+
+        // Mark prompt action
+        markPromptAction: async (sessionId, promptId, action) => {
+            try {
+                const response = await apiClient.post(`/api/prompt-generator-chat/${sessionId}/prompts/${promptId}/action`, {
+                    action
+                })
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to mark prompt action')
+            }
+        }
+    },
+
+    // Collaboration APIs
+    collaboration: {
+        // Get collaboration data
+        getCollaboration: async (chatId) => {
+            try {
+                const response = await apiClient.get(`/api/collaboration/${chatId}`)
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to get collaboration data')
+            }
+        },
+
+        // Get active users
+        getActiveUsers: async (chatId) => {
+            try {
+                const response = await apiClient.get(`/api/collaboration/${chatId}/active-users`)
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to get active users')
+            }
+        },
+
+        // Update user presence
+        updatePresence: async (chatId, userData) => {
+            try {
+                const response = await apiClient.post(`/api/collaboration/${chatId}/active-users`, userData)
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to update presence')
+            }
+        },
+
+        // Invite user
+        inviteUser: async (chatId, inviteData) => {
+            try {
+                const response = await apiClient.post(`/api/collaboration/${chatId}/invite`, inviteData)
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to invite user')
+            }
+        },
+
+        // Update user role
+        updateUserRole: async (chatId, userId, role) => {
+            try {
+                const response = await apiClient.put(`/api/collaboration/${chatId}/users/${userId}/role`, { role })
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to update user role')
+            }
+        },
+
+        // Remove user
+        removeUser: async (chatId, userId) => {
+            try {
+                const response = await apiClient.delete(`/api/collaboration/${chatId}/users/${userId}`)
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to remove user')
+            }
+        },
+
+        // Send message
+        sendMessage: async (chatId, messageData) => {
+            try {
+                const response = await apiClient.post(`/api/collaboration/${chatId}/messages`, messageData)
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to send message')
+            }
+        },
+
+        // Get messages
+        getMessages: async (chatId, params = {}) => {
+            try {
+                const response = await apiClient.get(`/api/collaboration/${chatId}/messages`, { params })
+                return response.data
+            } catch (error) {
+                throw new Error(error.response?.data?.message || 'Failed to get messages')
             }
         }
     }
