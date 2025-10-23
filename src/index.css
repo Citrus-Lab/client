@@ -23,6 +23,33 @@ body {
   overflow: hidden;
 }
 
+/* Right Sidebar Styles */
+.right-sidebar {
+  width: 4rem;
+  padding: 0.5rem;
+  right: 0.5rem;
+}
+
+.right-sidebar .rail-icon {
+  width: 3rem;
+  height: 3rem;
+  margin: 0.25rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.right-sidebar .rail-icon:hover {
+  transform: scale(1.05);
+}
+
+.right-sidebar .rail-icon img {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
 /* Citrus theme tokens */
 :root {
   --citrus-bg: #0a0b0e;
@@ -1811,6 +1838,37 @@ input:checked+.toggle-slider:before {
   border-color: #d7ff2f;
   box-shadow: 0 0 0 3px rgba(215, 255, 47, 0.1);
   transform: scale(1.01);
+}
+
+/* Sidebar spacing and positioning only */
+.left-sidebar-icons,
+.right-sidebar-icons {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 0;
+  z-index: 30;
+}
+
+.left-sidebar-icons {
+  left: 0.5rem;
+}
+
+.right-sidebar-icons {
+  right: 0;
+}
+
+/* Sidebar container transitions */
+.sidebar-container {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Main content area transitions */
+.main-content-area {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Smooth transitions for all interactive elements */

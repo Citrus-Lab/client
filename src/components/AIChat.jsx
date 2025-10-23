@@ -1079,7 +1079,7 @@ This enhanced context provides better guidance for AI assistants.`
     <div className="w-full h-screen flex overflow-hidden">
       {/* Left Sidebar - Template Style */}
       <div
-        className={`${sidebarCollapsed ? 'w-16' : 'w-64'} citrus-surface no-border flex flex-col flex-shrink-0 h-full fixed left-0 top-0 z-20 sidebar-container`}
+        className={`${sidebarCollapsed ? 'w-16 left-[0.5rem]' : 'w-64 left-0'} citrus-surface no-border flex flex-col flex-shrink-0 h-full fixed top-0 z-20 sidebar-container`}
         onMouseEnter={handleLeftSidebarMouseEnter}
         onMouseLeave={handleLeftSidebarMouseLeave}
       >
@@ -1199,7 +1199,7 @@ This enhanced context provides better guidance for AI assistants.`
       {/* Main Content Area */}
       <div
         className="flex-1 flex flex-col h-full min-w-0 overflow-hidden main-content-area"
-        style={{ marginLeft: sidebarCollapsed ? '4rem' : '16rem', marginRight: rightSidebarCollapsed ? '4rem' : '16rem' }}
+        style={{ marginLeft: sidebarCollapsed ? '4.5rem' : '16rem', marginRight: rightSidebarCollapsed ? '4.5rem' : '16.5rem' }}
       >
         {/* Unified container: navbar + chat with neon margin box */}
         <div className="w-full max-w-7xl mx-auto my-4 citrus-neon-border-strong rounded-3xl flex-1 flex flex-col relative z-10 bg-[#121318] overflow-hidden">
@@ -1893,7 +1893,7 @@ This enhanced context provides better guidance for AI assistants.`
             )}
             {rightSidebarCollapsed && (
               <div
-                className="w-16 no-border flex flex-col items-center justify-between py-2 fixed top-0 right-0 h-screen z-20 bg-[#121318] sidebar-container"
+                className="right-sidebar flex flex-col items-center justify-between fixed top-0 right-[0.5rem] h-screen z-20"
                 onMouseEnter={handleRightSidebarMouseEnter}
               >
                 {/* Top icons: Prompt Generator and Project Context (reversed order) */}
