@@ -43,20 +43,29 @@ const ShareModal = ({ isOpen, onClose, chatId, chatTitle }) => {
   const loadCollaboration = async () => {
     try {
       console.log('📡 ShareModal: Making request to load collaboration for chatId:', chatId);
-      const { data } = await apiClient.post(`${API_CONFIG.endpoints.collaboration}/${chatId}`, {
+      const response = await apiClient.post(`${API_CONFIG.endpoints.collaboration}/${chatId}`, {
         userId: 'temp-user-id'
       });
-      console.log('   Response data:', data);
       
-      if (data?.collaboration) {
-        setCollaborators(data.collaboration.collaborators || []);
-        setShareLinkEnabled(data.collaboration.shareLinkEnabled || false);
-        if (data.collaboration.shareLink && data.collaboration.shareLinkEnabled) {
-          setShareLink(`${window.location.origin}/invitation/${data.collaboration.shareLink}`);
+      console.log('   Raw API response:', response);
+      
+      // Check if response data exists and has the expected structure
+      if (response.data) {
+        console.log('   Response data:', response.data);
+        const { collaboration } = response.data;
+        
+        if (collaboration) {
+          setCollaborators(collaboration.collaborators || []);
+          setShareLinkEnabled(collaboration.shareLinkEnabled || false);
+          if (collaboration.shareLink && collaboration.shareLinkEnabled) {
+            setShareLink(`${window.location.origin}/invitation/${collaboration.shareLink}`);
+          }
+          console.log('✅ ShareModal: Collaboration loaded successfully');
+        } else {
+          console.log('⚠️ ShareModal: No collaboration data in response');
         }
-        console.log('✅ ShareModal: Collaboration loaded successfully');
       } else {
-        console.log('⚠️ ShareModal: No collaboration data in response');
+        console.log('⚠️ ShareModal: No data in response');
       }
     } catch (error) {
       console.error('❌ ShareModal: Failed to load collaboration:', error);
