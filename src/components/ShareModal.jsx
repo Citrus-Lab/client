@@ -43,12 +43,12 @@ const ShareModal = ({ isOpen, onClose, chatId, chatTitle }) => {
   const loadCollaboration = async () => {
     try {
       console.log('📡 ShareModal: Making request to load collaboration for chatId:', chatId);
-      const response = await apiClient.post(`${API_CONFIG.endpoints.collaboration}/${chatId}`, {
+      const { data } = await apiClient.post(`${API_CONFIG.endpoints.collaboration}/${chatId}`, {
         userId: 'temp-user-id'
       });
       console.log('   Response data:', data);
       
-      if (data.collaboration) {
+      if (data?.collaboration) {
         setCollaborators(data.collaboration.collaborators || []);
         setShareLinkEnabled(data.collaboration.shareLinkEnabled || false);
         if (data.collaboration.shareLink && data.collaboration.shareLinkEnabled) {
