@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
+import apiClient, { API_CONFIG } from '../config/api';
 
 const ShareModal = ({ isOpen, onClose, chatId, chatTitle }) => {
   const [collaborators, setCollaborators] = useState([]);
@@ -42,19 +43,9 @@ const ShareModal = ({ isOpen, onClose, chatId, chatTitle }) => {
   const loadCollaboration = async () => {
     try {
       console.log('📡 ShareModal: Making request to load collaboration for chatId:', chatId);
-      const url = `http://localhost:3001/api/collaboration/${chatId}`;
-      console.log('   Request URL:', url);
-      
-      // Use POST to create/get collaboration with userId in body
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: 'temp-user-id' })
+      const response = await apiClient.post(`${API_CONFIG.endpoints.collaboration}/${chatId}`, {
+        userId: 'temp-user-id'
       });
-      console.log('   Response status:', response.status);
-      console.log('   Response ok:', response.ok);
-      
-      const data = await response.json();
       console.log('   Response data:', data);
       
       if (data.collaboration) {
@@ -78,9 +69,8 @@ const ShareModal = ({ isOpen, onClose, chatId, chatTitle }) => {
 
   const loadActiveUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/api/collaboration/${chatId}/active-users`);
-      const data = await response.json();
-      setActiveUsers(data.activeUsers || []);
+      const response = await apiClient.get(`${API_CONFIG.endpoints.collaboration}/${chatId}/active-users`);
+      setActiveUsers(response.data.activeUsers || []);
     } catch (error) {
       console.error('Failed to load active users:', error);
     }
@@ -92,26 +82,19 @@ const ShareModal = ({ isOpen, onClose, chatId, chatTitle }) => {
     console.log('📧 ShareModal: Sending invitation for chatId:', chatId, 'to email:', emailInput.trim());
     setIsLoading(true);
     try {
-      const url = `http://localhost:3001/api/collaboration/${chatId}/invite`;
-      console.log('   Invite URL:', url);
-      
-      const requestBody = {
+      const response = await apiClient.post(`${API_CONFIG.endpoints.collaboration}/${chatId}/invite`, {
         email: emailInput.trim(),
         role: selectedRole,
         userId: 'temp-user-id' // TODO: Replace with actual user ID from auth
-      };
-      console.log('   Request body:', requestBody);
-      
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
+      });
+      console.log('   Request body:', {
+        email: emailInput.trim(),
+        role: selectedRole,
+        userId: 'temp-user-id'
       });
       
-      console.log('   Invite response status:', response.status);
-
-      if (response.ok) {
-        const data = await response.json();
+      if (response.data) {
+        const data = response.data;
         setCollaborators(data.collaboration.collaborators);
         setEmailInput('');
         
