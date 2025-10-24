@@ -1,12 +1,27 @@
 import axios from 'axios'
 
+// Get API URL from environment variables with fallbacks
+const getApiUrl = () => {
+  // Check Vite environment variable first
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  // Fallback to process.env for build time variables
+  if (import.meta.env.PROD && process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL;
+  }
+  // Default to localhost for development
+  return 'http://localhost:3001';
+};
+
 export const API_CONFIG = {
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001',
+    baseURL: getApiUrl(),
     timeout: 30000, // 30 seconds timeout
     endpoints: {
         chat: '/api/chat',
         models: '/api/models',
-        health: '/api/health'
+        health: '/api/health',
+        collaboration: '/api/collaboration'
     }
 }
 
@@ -325,80 +340,124 @@ export const api = {
         // Get collaboration data
         getCollaboration: async (chatId) => {
             try {
-                const response = await apiClient.get(`/api/collaboration/${chatId}`)
-                return response.data
+                const url = `${API_CONFIG.endpoints.collaboration}/${chatId}`;
+                console.log(`Fetching collaboration data from: ${API_CONFIG.baseURL}${url}`);
+                const response = await apiClient.get(url);
+                return response.data;
             } catch (error) {
-                throw new Error(error.response?.data?.message || 'Failed to get collaboration data')
+                console.error('Collaboration API Error:', {
+                    message: error.message,
+                    response: error.response?.data,
+                    config: error.config
+                });
+                throw new Error(error.response?.data?.message || 'Failed to fetch collaboration data. Please try again later.');
             }
         },
 
         // Get active users
         getActiveUsers: async (chatId) => {
             try {
-                const response = await apiClient.get(`/api/collaboration/${chatId}/active-users`)
-                return response.data
+                const response = await apiClient.get(`${API_CONFIG.endpoints.collaboration}/${chatId}/active-users`);
+                return response.data;
             } catch (error) {
-                throw new Error(error.response?.data?.message || 'Failed to get active users')
+                console.error('Active Users API Error:', error);
+                throw new Error(error.response?.data?.message || 'Failed to fetch active users');
             }
         },
 
         // Update user presence
         updatePresence: async (chatId, userData) => {
             try {
-                const response = await apiClient.post(`/api/collaboration/${chatId}/active-users`, userData)
-                return response.data
+                const response = await apiClient.post(
+                    `${API_CONFIG.endpoints.collaboration}/${chatId}/presence`, 
+                    userData
+                );
+                return response.data;
             } catch (error) {
-                throw new Error(error.response?.data?.message || 'Failed to update presence')
+                console.error('Update Presence Error:', error);
+                throw new Error(error.response?.data?.message || 'Failed to update presence');
             }
         },
 
         // Invite user
         inviteUser: async (chatId, inviteData) => {
             try {
-                const response = await apiClient.post(`/api/collaboration/${chatId}/invite`, inviteData)
-                return response.data
+                const response = await apiClient.post(
+                    `${API_CONFIG.endpoints.collaboration}/${chatId}/invite`, 
+                    inviteData
+                );
+                return response.data;
             } catch (error) {
-                throw new Error(error.response?.data?.message || 'Failed to invite user')
+                console.error('Invite User Error:', {
+                    error: error.message,
+                    response: error.response?.data
+                });
+                
+                // Handle specific error cases
+                if (error.response?.status === 400) {
+                    throw new Error('Invalid email address or user data');
+                } else if (error.response?.status === 404) {
+                    throw new Error('Chat session not found');
+                } else if (error.response?.status === 500) {
+                    throw new Error('Failed to send invitation. Please try again later.');
+                }
+                
+                throw new Error(error.response?.data?.message || 'Failed to send invitation');
             }
         },
 
         // Update user role
         updateUserRole: async (chatId, userId, role) => {
             try {
-                const response = await apiClient.put(`/api/collaboration/${chatId}/users/${userId}/role`, { role })
-                return response.data
+                const response = await apiClient.put(
+                    `${API_CONFIG.endpoints.collaboration}/${chatId}/users/${userId}/role`, 
+                    { role }
+                );
+                return response.data;
             } catch (error) {
-                throw new Error(error.response?.data?.message || 'Failed to update user role')
+                console.error('Update Role Error:', error);
+                throw new Error(error.response?.data?.message || 'Failed to update user role');
             }
         },
 
         // Remove user
         removeUser: async (chatId, userId) => {
             try {
-                const response = await apiClient.delete(`/api/collaboration/${chatId}/users/${userId}`)
-                return response.data
+                const response = await apiClient.delete(
+                    `${API_CONFIG.endpoints.collaboration}/${chatId}/users/${userId}`
+                );
+                return response.data;
             } catch (error) {
-                throw new Error(error.response?.data?.message || 'Failed to remove user')
+                console.error('Remove User Error:', error);
+                throw new Error(error.response?.data?.message || 'Failed to remove user');
             }
         },
 
         // Send message
         sendMessage: async (chatId, messageData) => {
             try {
-                const response = await apiClient.post(`/api/collaboration/${chatId}/messages`, messageData)
-                return response.data
+                const response = await apiClient.post(
+                    `${API_CONFIG.endpoints.collaboration}/${chatId}/messages`, 
+                    messageData
+                );
+                return response.data;
             } catch (error) {
-                throw new Error(error.response?.data?.message || 'Failed to send message')
+                console.error('Send Message Error:', error);
+                throw new Error(error.response?.data?.message || 'Failed to send message');
             }
         },
 
         // Get messages
         getMessages: async (chatId, params = {}) => {
             try {
-                const response = await apiClient.get(`/api/collaboration/${chatId}/messages`, { params })
-                return response.data
+                const response = await apiClient.get(
+                    `${API_CONFIG.endpoints.collaboration}/${chatId}/messages`, 
+                    { params }
+                );
+                return response.data;
             } catch (error) {
-                throw new Error(error.response?.data?.message || 'Failed to get messages')
+                console.error('Get Messages Error:', error);
+                throw new Error(error.response?.data?.message || 'Failed to fetch messages');
             }
         }
     }
