@@ -1,17 +1,8 @@
 import axios from 'axios'
 
-// Get API URL from environment variables with fallbacks
+// Always use production URL
 const getApiUrl = () => {
-  // Check Vite environment variable first
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
-  // Fallback to process.env for build time variables
-  if (import.meta.env.PROD && process.env.REACT_APP_API_URL) {
-    return process.env.REACT_APP_API_URL;
-  }
-  // Default to localhost for development
-  return 'http://localhost:3001';
+  return 'https://citrus-lab-backend.onrender.com';
 };
 
 export const API_CONFIG = {
