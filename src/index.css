@@ -30,26 +30,6 @@ body {
   right: 0.5rem;
 }
 
-.right-sidebar .rail-icon {
-  width: 3rem;
-  height: 3rem;
-  margin: 0.25rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.right-sidebar .rail-icon:hover {
-  transform: scale(1.05);
-}
-
-.right-sidebar .rail-icon img {
-  width: 1.5rem;
-  height: 1.5rem;
-  object-fit: contain;
-}
-
 /* Citrus theme tokens */
 :root {
   --citrus-bg: #0a0b0e;

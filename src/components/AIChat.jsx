@@ -1079,7 +1079,7 @@ This enhanced context provides better guidance for AI assistants.`
     <div className="w-full h-screen flex overflow-hidden">
       {/* Left Sidebar - Template Style */}
       <div
-        className={`${sidebarCollapsed ? 'w-16 left-[0.5rem]' : 'w-64 left-0'} citrus-surface no-border flex flex-col flex-shrink-0 h-full fixed top-0 z-20 sidebar-container`}
+        className={`${sidebarCollapsed ? 'w-16' : 'w-64'} citrus-surface no-border flex flex-col flex-shrink-0 h-full fixed top-0 left-2 z-20 sidebar-container`}
         onMouseEnter={handleLeftSidebarMouseEnter}
         onMouseLeave={handleLeftSidebarMouseLeave}
       >
@@ -1198,15 +1198,15 @@ This enhanced context provides better guidance for AI assistants.`
 
       {/* Main Content Area */}
       <div
-        className="flex-1 flex flex-col h-full min-w-0 overflow-hidden main-content-area"
-        style={{ marginLeft: sidebarCollapsed ? '4.5rem' : '16rem', marginRight: rightSidebarCollapsed ? '4.5rem' : '16.5rem' }}
+        className="flex-1 flex flex-col h-full min-w-0 overflow-hidden main-content-area transition-all duration-300 px-4"
+        style={{ marginLeft: sidebarCollapsed ? '4.5rem' : '16.5rem', marginRight: rightSidebarCollapsed ? '4.5rem' : '16.5rem' }}
       >
         {/* Unified container: navbar + chat with neon margin box */}
-        <div className="w-full max-w-7xl mx-auto my-4 citrus-neon-border-strong rounded-3xl flex-1 flex flex-col relative z-10 bg-[#121318] overflow-hidden">
+        <div className="w-full my-4 citrus-neon-border-strong rounded-3xl flex-1 flex flex-col relative z-10 bg-[#121318] overflow-hidden">
           {/* Top Header - Centered pill with Share */}
-          <header className="p-4 flex-shrink-0 z-30 relative">
+          <header className="flex-shrink-0 z-30 relative">
             <div>
-              <div className="citrus-header-bar w-full py-3 rounded-none">
+              <div className="citrus-header-bar w-full py-4 rounded-none">
                 <div className="w-full flex items-center justify-between px-6">
                   {/* Left: session title with inline rename OR back button for prompt generator */}
                   <div className="flex items-center min-h-[32px]">
@@ -1621,7 +1621,7 @@ This enhanced context provides better guidance for AI assistants.`
 
             {/* Right Panel - Template Style */}
             {!rightSidebarCollapsed && (
-              <div className="w-64 no-border flex flex-col h-screen fixed top-0 right-0 z-20 bg-[#121318] sidebar-container"
+              <div className="w-64 no-border flex flex-col h-screen fixed top-0 right-2 z-20 bg-[#121318] sidebar-container"
                 onMouseLeave={handleRightSidebarMouseLeave}>
                 {/* Right Sidebar Content */}
                 <div className="flex-1 flex flex-col p-4 min-h-0">
