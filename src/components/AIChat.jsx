@@ -1084,9 +1084,9 @@ This enhanced context provides better guidance for AI assistants.`
         onMouseLeave={handleLeftSidebarMouseLeave}
       >
         {/* Top logo area */}
-        <div className="flex items-center justify-center h-16 flex-shrink-0">
+        <div className="flex items-center justify-center h-16 flex-shrink-0 mt-4">
           {sidebarCollapsed ? (
-            <img src={logoIcon} alt="Logo" className="w-7 h-7" />
+            <img src={logoIcon} alt="Logo" className="w-9 h-9" />
           ) : (
             <img src={citrusLogo} alt="Citruslab" className="h-10" />
           )}
