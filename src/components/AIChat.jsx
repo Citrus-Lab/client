@@ -3180,20 +3180,28 @@ You can paste text content here. Use Ctrl+V to paste."
 
               {/* Model Selection */}
               <div>
-                <label className="text-gray-300 text-sm font-medium mb-3 block">Select AI Model</label>
-                <div className="space-y-2">
+                <label className="text-gray-300 text-sm font-medium mb-3 block">
+                  Select AI Model
+                  {mode === 'auto' && (
+                    <span className="ml-2 text-xs text-gray-500">(Auto mode enabled)</span>
+                  )}
+                </label>
+                <div className={`space-y-2 ${mode === 'auto' ? 'opacity-50 pointer-events-none' : ''}`}>
                   {aiModels.map((model) => (
                     <button
                       key={model.id}
+                      disabled={mode === 'auto'}
                       onClick={() => {
-                        setSelectedModel(model)
-                        setTimeout(() => setShowMobileModelSelector(false), 300)
+                        if (mode === 'manual') {
+                          setSelectedModel(model)
+                          setTimeout(() => setShowMobileModelSelector(false), 300)
+                        }
                       }}
                       className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
                         selectedModel.id === model.id
                           ? 'bg-[#d7ff2f]/10 border-[#d7ff2f] shadow-lg'
                           : 'bg-[#0a0b0e] border-gray-700 hover:border-[#d7ff2f]/50'
-                      }`}
+                      } ${mode === 'auto' ? 'cursor-not-allowed' : ''}`}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
