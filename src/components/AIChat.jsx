@@ -33,6 +33,7 @@ const AIChat = ({ themeWithImage, onToggleTheme }) => {
   const [mobileLeftSidebarOpen, setMobileLeftSidebarOpen] = useState(false)
   const [mobileRightSidebarOpen, setMobileRightSidebarOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [showMobileModelSelector, setShowMobileModelSelector] = useState(false)
   
   // Debouncing refs for smooth sidebar animations
   const leftSidebarTimeoutRef = useRef(null)
@@ -1665,11 +1666,11 @@ This enhanced context provides better guidance for AI assistants.`
                                 /* Mobile Simplified Input - Fixed at bottom */
                                 <div className="fixed bottom-4 left-2 right-2 px-4 py-3 z-40">
                                   <div className="flex items-center gap-3">
-                                    {/* Plus Button */}
+                                    {/* Plus Button - Opens Model Selector */}
                                     <button
-                                      onClick={() => setMobileLeftSidebarOpen(true)}
+                                      onClick={() => setShowMobileModelSelector(true)}
                                       className="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-full border-2 border-[#d7ff2f] bg-transparent hover:bg-[#d7ff2f]/10 transition-all"
-                                      aria-label="Menu"
+                                      aria-label="Model & Settings"
                                     >
                                       <svg className="w-6 h-6 text-[#d7ff2f]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -1800,11 +1801,11 @@ This enhanced context provides better guidance for AI assistants.`
                 {messages.length > 0 && isMobile && (
                   <div className="fixed bottom-4 left-2 right-2 px-4 py-3 z-40">
                     <div className="flex items-center gap-3">
-                      {/* Plus Button */}
+                      {/* Plus Button - Opens Model Selector */}
                       <button
-                        onClick={() => setMobileLeftSidebarOpen(true)}
+                        onClick={() => setShowMobileModelSelector(true)}
                         className="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-full border-2 border-[#d7ff2f] bg-transparent hover:bg-[#d7ff2f]/10 transition-all"
-                        aria-label="Menu"
+                        aria-label="Model & Settings"
                       >
                         <svg className="w-6 h-6 text-[#d7ff2f]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -3107,6 +3108,120 @@ You can paste text content here. Use Ctrl+V to paste."
                       })()}
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Model Selector Modal */}
+      {showMobileModelSelector && isMobile && (
+        <div 
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[80] flex items-end md:hidden"
+          onClick={() => setShowMobileModelSelector(false)}
+        >
+          <div 
+            className="w-full bg-[#1a1b21] border-t-2 border-[#d7ff2f] rounded-t-3xl max-h-[70vh] overflow-hidden flex flex-col animate-slideUp"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-700">
+              <h3 className="text-[#d7ff2f] font-semibold text-lg">Model & Settings</h3>
+              <button
+                onClick={() => setShowMobileModelSelector(false)}
+                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-all"
+                aria-label="Close"
+              >
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-6">
+              {/* Mode Selection - Auto/Manual */}
+              <div>
+                <label className="text-gray-300 text-sm font-medium mb-3 block">Mode</label>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setMode('auto')}
+                    className={`flex-1 py-3 px-4 rounded-xl border-2 transition-all font-medium ${
+                      mode === 'auto'
+                        ? 'bg-[#d7ff2f] border-[#d7ff2f] text-black'
+                        : 'bg-transparent border-gray-600 text-gray-300 hover:border-[#d7ff2f]/50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-center gap-2">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                      <span>Auto</span>
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => setMode('manual')}
+                    className={`flex-1 py-3 px-4 rounded-xl border-2 transition-all font-medium ${
+                      mode === 'manual'
+                        ? 'bg-[#d7ff2f] border-[#d7ff2f] text-black'
+                        : 'bg-transparent border-gray-600 text-gray-300 hover:border-[#d7ff2f]/50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-center gap-2">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                      </svg>
+                      <span>Manual</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              {/* Model Selection */}
+              <div>
+                <label className="text-gray-300 text-sm font-medium mb-3 block">Select AI Model</label>
+                <div className="space-y-2">
+                  {aiModels.map((model) => (
+                    <button
+                      key={model.id}
+                      onClick={() => {
+                        setSelectedModel(model)
+                        setTimeout(() => setShowMobileModelSelector(false), 300)
+                      }}
+                      className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
+                        selectedModel.id === model.id
+                          ? 'bg-[#d7ff2f]/10 border-[#d7ff2f] shadow-lg'
+                          : 'bg-[#0a0b0e] border-gray-700 hover:border-[#d7ff2f]/50'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                            model.name?.includes('Claude') ? 'bg-[#CC785C]' :
+                            model.name?.includes('GPT') ? 'bg-white' :
+                            model.name?.includes('Gemini') ? 'bg-gradient-to-br from-blue-500 to-purple-600' :
+                            'bg-gradient-to-br from-green-500 to-blue-500'
+                          }`}>
+                            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                          </div>
+                          <div>
+                            <div className="font-semibold text-white">{model.name}</div>
+                            <div className="text-xs text-gray-400">{model.provider}</div>
+                          </div>
+                        </div>
+                        {selectedModel.id === model.id && (
+                          <div className="w-6 h-6 rounded-full bg-[#d7ff2f] flex items-center justify-center">
+                            <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
