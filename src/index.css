@@ -4,7 +4,7 @@
 html,
 body {
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -19,7 +19,7 @@ body {
 
 #root {
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -2632,12 +2632,13 @@ hanced Collaboration Panel Compact Styles */
     padding-top: 4rem !important; /* Space for mobile header */
   }
 
-  /* Sidebar adjustments for mobile */
+  /* Sidebar adjustments for mobile - full height, covers header */
   .sidebar-container {
     width: 280px !important;
     max-width: 85vw;
-    top: 4rem !important; /* Start below mobile header */
-    height: calc(100vh - 4rem) !important; /* Adjust height */
+    top: 0 !important; /* Start from top of screen */
+    height: 100dvh !important; /* Full viewport height */
+    z-index: 70 !important; /* Above mobile header */
   }
 
   /* Reduce chat container margins on mobile */
@@ -2665,9 +2666,7 @@ hanced Collaboration Panel Compact Styles */
 
 /* Tablet responsive */
 @media (min-width: 768px) and (max-width: 1024px) {
-  .sidebar-container {
-    width: 240px !important;
-  }
+  /* Removed forced sidebar width to allow collapse behavior */
   
   .main-content-area {
     padding-left: 2rem !important;

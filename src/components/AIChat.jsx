@@ -332,6 +332,9 @@ const AIChat = ({ themeWithImage, onToggleTheme }) => {
 
   // Debounced sidebar hover handlers
   const handleLeftSidebarMouseEnter = useCallback(() => {
+    // Only expand on hover for large desktop screens (>1024px)
+    if (window.innerWidth <= 1024) return
+    
     if (leftSidebarTimeoutRef.current) {
       clearTimeout(leftSidebarTimeoutRef.current)
     }
@@ -339,6 +342,9 @@ const AIChat = ({ themeWithImage, onToggleTheme }) => {
   }, [])
 
   const handleLeftSidebarMouseLeave = useCallback(() => {
+    // Only collapse on leave for large desktop screens (>1024px)
+    if (window.innerWidth <= 1024) return
+    
     if (leftSidebarTimeoutRef.current) {
       clearTimeout(leftSidebarTimeoutRef.current)
     }
@@ -348,6 +354,9 @@ const AIChat = ({ themeWithImage, onToggleTheme }) => {
   }, [])
 
   const handleRightSidebarMouseEnter = useCallback(() => {
+    // Only expand on hover for large desktop screens (>1024px)
+    if (window.innerWidth <= 1024) return
+    
     if (rightSidebarTimeoutRef.current) {
       clearTimeout(rightSidebarTimeoutRef.current)
     }
@@ -355,6 +364,9 @@ const AIChat = ({ themeWithImage, onToggleTheme }) => {
   }, [])
 
   const handleRightSidebarMouseLeave = useCallback(() => {
+    // Only collapse on leave for large desktop screens (>1024px)
+    if (window.innerWidth <= 1024) return
+    
     if (rightSidebarTimeoutRef.current) {
       clearTimeout(rightSidebarTimeoutRef.current)
     }
@@ -1113,11 +1125,11 @@ This enhanced context provides better guidance for AI assistants.`
     setPromptGeneratorInput('')
   }
   return (
-    <div className="w-full h-screen flex overflow-hidden">
-      {/* Mobile backdrop */}
-      {(mobileLeftSidebarOpen || mobileRightSidebarOpen) && (
+    <div className="w-full h-[100dvh] flex overflow-hidden">
+      {/* Mobile backdrop - only for left sidebar */}
+      {mobileLeftSidebarOpen && (
         <div 
-          className="fixed top-16 left-0 right-0 bottom-0 bg-black/60 z-40 md:hidden"
+          className="fixed top-0 left-0 right-0 bottom-0 bg-black/60 z-[65] md:hidden"
           onClick={closeMobileSidebars}
         />
       )}
@@ -1151,7 +1163,7 @@ This enhanced context provides better guidance for AI assistants.`
       {/* Left Sidebar - Template Style */}
       <div
         className={`${(isMobile && mobileLeftSidebarOpen) || (!isMobile && !sidebarCollapsed) ? 'w-64' : 'w-16'} citrus-surface no-border flex flex-col flex-shrink-0 fixed sidebar-container transition-transform duration-300 
-          ${isMobile ? 'top-16 h-[calc(100vh-4rem)] z-[60]' : 'top-0 h-full z-50'}
+          ${isMobile ? 'top-0 h-[100dvh] z-[70]' : 'top-0 h-full z-50'}
           md:left-2 
           ${mobileLeftSidebarOpen ? 'left-0 translate-x-0' : '-translate-x-full md:translate-x-0'}`}
         onMouseEnter={handleLeftSidebarMouseEnter}
@@ -1169,7 +1181,22 @@ This enhanced context provides better guidance for AI assistants.`
         )}
 
         {/* Middle stack */}
-        <div className={`flex-1 overflow-hidden flex flex-col p-4 sidebar-content ${isMobile ? 'mt-2' : ''}`}>
+        <div className={`flex-1 overflow-hidden flex flex-col p-4 sidebar-content ${isMobile ? 'mt-16 pt-4' : ''}`}>
+          {/* Mobile close button at top */}
+          {isMobile && mobileLeftSidebarOpen && (
+            <div className="absolute top-4 right-4 z-10">
+              <button
+                onClick={() => setMobileLeftSidebarOpen(false)}
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-black/50 border border-[#d7ff2f]/30 hover:bg-black/70 hover:border-[#d7ff2f] transition-all"
+                aria-label="Close sidebar"
+              >
+                <svg className="w-5 h-5 text-[#d7ff2f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          )}
+          
           {((isMobile && mobileLeftSidebarOpen) || (!isMobile && !sidebarCollapsed)) ? (
             <div className="flex-1 min-h-0 overflow-hidden flex flex-col space-y-2">
               {/* New Chat Section - Compact */}
@@ -1536,7 +1563,7 @@ This enhanced context provides better guidance for AI assistants.`
             ) : (
               <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 {/* Messages - Scrollable */}
-                <div className={`flex-1 overflow-y-auto ${isMobile ? 'pb-28' : 'px-4'}`}>
+                <div className={`flex-1 overflow-y-auto ${isMobile ? 'pb-32' : 'px-4'}`}>
                   <div className={`py-6 space-y-6 ${isMobile ? 'px-4' : 'px-0'}`}>
                     {messages.length === 0 ? (
                       <div className="text-center text-gray-300 mt-6">
@@ -1669,12 +1696,10 @@ This enhanced context provides better guidance for AI assistants.`
                                         <button
                                           type="submit"
                                           disabled={!input.trim() || isLoading}
-                                          className="absolute right-3 bottom-3 w-10 h-10 flex items-center justify-center rounded-full bg-[#d7ff2f] hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                          className="absolute right-3 bottom-3 w-10 h-10 flex items-center justify-center rounded-full hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed p-2"
                                           aria-label="Send"
                                         >
-                                          <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                                          </svg>
+                                          <img src={logoIcon} alt="Send" className="w-full h-full object-contain" />
                                         </button>
                                       </form>
                                     </div>
@@ -1806,12 +1831,10 @@ This enhanced context provides better guidance for AI assistants.`
                           <button
                             type="submit"
                             disabled={!input.trim() || isLoading}
-                            className="absolute right-3 bottom-3 w-10 h-10 flex items-center justify-center rounded-full bg-[#d7ff2f] hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="absolute right-3 bottom-3 w-10 h-10 flex items-center justify-center rounded-full hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed p-2"
                             aria-label="Send"
                           >
-                            <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                            </svg>
+                            <img src={logoIcon} alt="Send" className="w-full h-full object-contain" />
                           </button>
                         </form>
                       </div>
@@ -1821,33 +1844,14 @@ This enhanced context provides better guidance for AI assistants.`
               </div>
             )}
 
-            {/* Right Panel - Template Style */}
-            {(!rightSidebarCollapsed || mobileRightSidebarOpen) && (
-              <div className={`w-64 no-border flex flex-col fixed bg-[#121318] sidebar-container transition-transform duration-300
-                ${isMobile ? 'top-16 h-[calc(100vh-4rem)] z-[60]' : 'top-0 h-screen z-50'}
-                md:right-2
-                ${mobileRightSidebarOpen ? 'right-0 translate-x-0' : 'translate-x-full md:translate-x-0'}
-                ${rightSidebarCollapsed && !mobileRightSidebarOpen ? 'md:hidden' : ''}`}
+            {/* Right Panel - Template Style - Hidden on Mobile */}
+            {!isMobile && (!rightSidebarCollapsed || mobileRightSidebarOpen) && (
+              <div className={`w-64 no-border flex flex-col fixed bg-[#121318] sidebar-container transition-transform duration-300 top-0 h-screen z-50 md:right-2 ${rightSidebarCollapsed && !mobileRightSidebarOpen ? 'md:hidden translate-x-full' : 'md:translate-x-0'}`}
                 onMouseLeave={handleRightSidebarMouseLeave}>
                 {/* Right Sidebar Content */}
                 <div className="flex-1 flex flex-col p-4 min-h-0 overflow-y-auto">
                   {/* Top sections with flex-1 to take available space */}
                   <div className="flex flex-col space-y-2">
-                    {/* New Chat Button - Only on Mobile */}
-                    {isMobile && (
-                      <div className="bg-black/30 rounded-lg border citrus-border glow-ring">
-                        <button
-                          onClick={() => {
-                            createNewChat();
-                            setMobileRightSidebarOpen(false);
-                          }}
-                          className="w-full p-3 rounded-lg transition-all flex items-center justify-center space-x-2 hover:brightness-110 hover:bg-black/50 sidebar-button-enhanced"
-                        >
-                          <img src={newChatIcon} className="w-4 h-4" alt="New Chat" />
-                          <span className="citrus-accent-text font-medium text-sm">New Chat</span>
-                        </button>
-                      </div>
-                    )}
                     
                     {/* Prompt Generator Button - Compact */}
                     <div className="bg-black/30 rounded-lg border citrus-border glow-ring">
@@ -1855,7 +1859,6 @@ This enhanced context provides better guidance for AI assistants.`
                         onClick={() => { 
                           setShowPromptGenerator(true); 
                           setShowProjectContext(false);
-                          if (isMobile) setMobileRightSidebarOpen(false);
                         }}
                         className="w-full p-3 rounded-lg transition-all flex items-center justify-center space-x-2 hover:brightness-110 hover:bg-black/50 sidebar-button-enhanced"
                       >
@@ -1865,7 +1868,7 @@ This enhanced context provides better guidance for AI assistants.`
                     </div>
 
                     {/* Project Context Section - Expanded for 3 items */}
-                    <div className={`bg-black/30 rounded-lg border citrus-border glow-ring ${isMobile ? 'flex-shrink-0' : ''}`} style={isMobile ? {} : { height: '200px' }}>
+                    <div className="bg-black/30 rounded-lg border citrus-border glow-ring" style={{ height: '200px' }}>
                       {/* Header */}
                       <div className="p-2 border-b border-gray-600">
                         <div className="flex items-center justify-between">
@@ -1883,7 +1886,7 @@ This enhanced context provides better guidance for AI assistants.`
                       </div>
 
                       {/* Content - Expanded height for 3 items */}
-                      <div className={`overflow-y-auto p-2 ${isMobile ? 'max-h-48' : ''}`} style={isMobile ? {} : { height: '160px' }}>
+                      <div className="overflow-y-auto p-2" style={{ height: '160px' }}>
                         {projectContexts.length === 0 ? (
                           <div className="text-center text-gray-400 text-xs py-4">
                             <div className="mb-1">Add your project context</div>
@@ -1955,7 +1958,7 @@ This enhanced context provides better guidance for AI assistants.`
                   <div className="mt-2 flex-shrink-0">
 
                     {/* Templates Section - Sticky at Bottom */}
-                    <div className={`bg-black/30 rounded-lg border citrus-border glow-ring flex flex-col ${isMobile ? '' : ''}`} style={isMobile ? {} : { height: '300px' }}>
+                    <div className="bg-black/30 rounded-lg border citrus-border glow-ring flex flex-col" style={{ height: '300px' }}>
                       {/* Header */}
                       <div className="p-2 border-b border-gray-600 flex-shrink-0">
                         <div className="flex items-center justify-between">
