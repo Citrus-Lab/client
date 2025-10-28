@@ -1,0 +1,5 @@
+# Handle client-side routing
+/google/oauth/callback /index.html 200
+/workspace/* /index.html 200
+/sign-up /index.html 200
+/* /index.html 200

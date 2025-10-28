@@ -29,6 +29,11 @@ const AIChat = ({ themeWithImage, onToggleTheme }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true)
   const [rightSidebarCollapsed, setRightSidebarCollapsed] = useState(true)
   
+  // Mobile sidebar states
+  const [mobileLeftSidebarOpen, setMobileLeftSidebarOpen] = useState(false)
+  const [mobileRightSidebarOpen, setMobileRightSidebarOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  
   // Debouncing refs for smooth sidebar animations
   const leftSidebarTimeoutRef = useRef(null)
   const rightSidebarTimeoutRef = useRef(null)
@@ -358,6 +363,22 @@ const AIChat = ({ themeWithImage, onToggleTheme }) => {
     }, 150) // Small delay to prevent jitter
   }, [])
 
+  // Mobile sidebar toggle functions
+  const toggleMobileLeftSidebar = useCallback(() => {
+    setMobileLeftSidebarOpen(prev => !prev)
+    if (mobileRightSidebarOpen) setMobileRightSidebarOpen(false)
+  }, [mobileRightSidebarOpen])
+
+  const toggleMobileRightSidebar = useCallback(() => {
+    setMobileRightSidebarOpen(prev => !prev)
+    if (mobileLeftSidebarOpen) setMobileLeftSidebarOpen(false)
+  }, [mobileLeftSidebarOpen])
+
+  const closeMobileSidebars = useCallback(() => {
+    setMobileLeftSidebarOpen(false)
+    setMobileRightSidebarOpen(false)
+  }, [])
+
   // Cleanup timeouts on unmount
   useEffect(() => {
     return () => {
@@ -368,6 +389,22 @@ const AIChat = ({ themeWithImage, onToggleTheme }) => {
         clearTimeout(rightSidebarTimeoutRef.current)
       }
     }
+  }, [])
+
+  // Handle window resize for mobile detection
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768
+      setIsMobile(mobile)
+      // Close mobile sidebars when switching to desktop
+      if (!mobile) {
+        setMobileLeftSidebarOpen(false)
+        setMobileRightSidebarOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   const detectBestModel = (question) => {
@@ -1077,44 +1114,71 @@ This enhanced context provides better guidance for AI assistants.`
   }
   return (
     <div className="w-full h-screen flex overflow-hidden">
+      {/* Mobile backdrop */}
+      {(mobileLeftSidebarOpen || mobileRightSidebarOpen) && (
+        <div 
+          className="fixed top-16 left-0 right-0 bottom-0 bg-black/60 z-40 md:hidden"
+          onClick={closeMobileSidebars}
+        />
+      )}
+
+      {/* Mobile Header Bar */}
+      <div className="fixed top-0 left-0 right-0 h-16 bg-[#121318] border-b border-[#272a33] z-[60] md:hidden flex items-center justify-between px-4 mobile-header-bar">
+        {/* Left Corner Button - Menu */}
+        <button
+          onClick={toggleMobileLeftSidebar}
+          className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors"
+          aria-label="Menu"
+        >
+          <img src="/mobile-view/right-side-icon.png" alt="Menu" className="w-6 h-6" />
+        </button>
+
+        {/* Center - CitrusLab Logo */}
+        <div className="flex-1 flex justify-center">
+          <img src={citrusLogo} alt="Citruslab" className="h-8" />
+        </div>
+
+        {/* Right Corner Button - Settings/Tools */}
+        <button
+          onClick={toggleMobileRightSidebar}
+          className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors"
+          aria-label="Tools"
+        >
+          <img src="/mobile-view/left-side-icon.png" alt="Tools" className="w-6 h-6" />
+        </button>
+      </div>
+
       {/* Left Sidebar - Template Style */}
       <div
-        className={`${sidebarCollapsed ? 'w-16' : 'w-64'} citrus-surface no-border flex flex-col flex-shrink-0 h-full fixed top-0 left-2 z-20 sidebar-container`}
+        className={`${(isMobile && mobileLeftSidebarOpen) || (!isMobile && !sidebarCollapsed) ? 'w-64' : 'w-16'} citrus-surface no-border flex flex-col flex-shrink-0 fixed sidebar-container transition-transform duration-300 
+          ${isMobile ? 'top-16 h-[calc(100vh-4rem)] z-[60]' : 'top-0 h-full z-50'}
+          md:left-2 
+          ${mobileLeftSidebarOpen ? 'left-0 translate-x-0' : '-translate-x-full md:translate-x-0'}`}
         onMouseEnter={handleLeftSidebarMouseEnter}
         onMouseLeave={handleLeftSidebarMouseLeave}
       >
-        {/* Top logo area */}
-        <div className="flex items-center justify-center h-16 flex-shrink-0 mt-4">
-          {sidebarCollapsed ? (
-            <img src={logoIcon} alt="Logo" className="w-9 h-9" />
-          ) : (
-            <img src={citrusLogo} alt="Citruslab" className="h-10" />
-          )}
-        </div>
+        {/* Top logo area - Only show on desktop */}
+        {!isMobile && (
+          <div className="flex items-center justify-center h-16 flex-shrink-0 mt-4">
+            {sidebarCollapsed ? (
+              <img src={logoIcon} alt="Logo" className="w-9 h-9" />
+            ) : (
+              <img src={citrusLogo} alt="Citruslab" className="h-10" />
+            )}
+          </div>
+        )}
 
         {/* Middle stack */}
-        <div className="flex-1 overflow-hidden flex flex-col p-4 sidebar-content">
-          {sidebarCollapsed ? (
-            <>
-              <div className="flex flex-col items-center gap-4 py-4">
-                {/* New Chat icon under logo */}
-                <button className="rail-icon citrus-button rounded-lg icon-button-enhanced" title="New chat" onClick={createNewChat}>
-                  <img src={newChatIcon} alt="New" className="w-6 h-6" />
-                </button>
-                {/* History icon */}
-                <button className="rail-icon citrus-button rounded-lg icon-button-enhanced" title="History">
-                  <img src={historyIcon} alt="History" className="w-6 h-6" />
-                </button>
-              </div>
-              {/* Spacer to push profile to bottom */}
-              <div className="flex-1"></div>
-            </>
-          ) : (
+        <div className={`flex-1 overflow-hidden flex flex-col p-4 sidebar-content ${isMobile ? 'mt-2' : ''}`}>
+          {((isMobile && mobileLeftSidebarOpen) || (!isMobile && !sidebarCollapsed)) ? (
             <div className="flex-1 min-h-0 overflow-hidden flex flex-col space-y-2">
               {/* New Chat Section - Compact */}
               <div className="bg-black/30 rounded-lg border citrus-border glow-ring">
                 <button
-                  onClick={createNewChat}
+                  onClick={() => {
+                    createNewChat()
+                    if (isMobile) setMobileLeftSidebarOpen(false)
+                  }}
                   className="w-full flex items-center justify-center space-x-2 rounded-lg py-3 px-4 transition-all text-sm font-medium hover:bg-black/50 hover:brightness-110 sidebar-button-enhanced"
                 >
                   <img src={newChatIcon} className="w-5 h-5" alt="New" />
@@ -1152,7 +1216,10 @@ This enhanced context provides better guidance for AI assistants.`
                         <ChatHistory
                           sessions={chatSessions}
                           currentSessionId={currentSessionId}
-                          onSessionSelect={switchToSession}
+                          onSessionSelect={(sessionId) => {
+                            switchToSession(sessionId)
+                            if (isMobile) setMobileLeftSidebarOpen(false)
+                          }}
                           onNewChat={createNewChat}
                           onUpdateTitle={updateSessionTitle}
                           onDeleteSession={deleteSession}
@@ -1163,24 +1230,30 @@ This enhanced context provides better guidance for AI assistants.`
                 </div>
               </div>
             </div>
+          ) : (
+            <>
+              <div className="flex flex-col items-center gap-4 py-4">
+                {/* New Chat icon under logo */}
+                <button className="rail-icon citrus-button rounded-lg icon-button-enhanced" title="New chat" onClick={() => {
+                  createNewChat()
+                  if (isMobile) setMobileLeftSidebarOpen(false)
+                }}>
+                  <img src={newChatIcon} alt="New" className="w-6 h-6" />
+                </button>
+                {/* History icon */}
+                <button className="rail-icon citrus-button rounded-lg icon-button-enhanced" title="History">
+                  <img src={historyIcon} alt="History" className="w-6 h-6" />
+                </button>
+              </div>
+              {/* Spacer to push profile to bottom */}
+              <div className="flex-1"></div>
+            </>
           )}
         </div>
 
         {/* Bottom area - Profile */}
         <div className="p-4 flex-shrink-0">
-          {sidebarCollapsed ? (
-            <div className="flex flex-col items-center">
-              <button
-                onClick={() => setShowProfileModal(true)}
-                className="rail-icon citrus-button rounded-full overflow-hidden icon-button-enhanced"
-                title="Profile"
-              >
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-sm font-bold shadow-lg profile-circle">
-                  {currentUser.name.charAt(0).toUpperCase()}
-                </div>
-              </button>
-            </div>
-          ) : (
+          {((isMobile && mobileLeftSidebarOpen) || (!isMobile && !sidebarCollapsed)) ? (
             <div className="bg-black/30 rounded-lg border citrus-border glow-ring">
               <button
                 onClick={() => setShowProfileModal(true)}
@@ -1192,6 +1265,18 @@ This enhanced context provides better guidance for AI assistants.`
                 <span className="citrus-accent-text text-sm font-medium">{currentUser.name}</span>
               </button>
             </div>
+          ) : (
+            <div className="flex flex-col items-center">
+              <button
+                onClick={() => setShowProfileModal(true)}
+                className="rail-icon citrus-button rounded-full overflow-hidden icon-button-enhanced"
+                title="Profile"
+              >
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-sm font-bold shadow-lg profile-circle">
+                  {currentUser.name.charAt(0).toUpperCase()}
+                </div>
+              </button>
+            </div>
           )}
         </div>
       </div>
@@ -1199,10 +1284,13 @@ This enhanced context provides better guidance for AI assistants.`
       {/* Main Content Area */}
       <div
         className="flex-1 flex flex-col h-full min-w-0 overflow-hidden main-content-area transition-all duration-300 px-4"
-        style={{ marginLeft: sidebarCollapsed ? '4.5rem' : '16.5rem', marginRight: rightSidebarCollapsed ? '4.5rem' : '16.5rem' }}
+        style={{ 
+          marginLeft: !isMobile ? (sidebarCollapsed ? '4.5rem' : '16.5rem') : '0',
+          marginRight: !isMobile ? (rightSidebarCollapsed ? '4.5rem' : '16.5rem') : '0'
+        }}
       >
         {/* Unified container: navbar + chat with neon margin box */}
-        <div className="w-full my-4 citrus-neon-border-strong rounded-3xl flex-1 flex flex-col relative z-10 bg-[#121318] overflow-hidden">
+        <div className={`w-full citrus-neon-border-strong rounded-3xl flex-1 flex flex-col relative z-10 bg-[#121318] overflow-hidden ${isMobile ? 'my-0 mb-0' : 'my-4'}`}>
           {/* Top Header - Centered pill with Share */}
           <header className="flex-shrink-0 z-30 relative">
             <div>
@@ -1268,7 +1356,8 @@ This enhanced context provides better guidance for AI assistants.`
                               {title}
                             </h1>
 
-                            {/* Chat Mode Toggle */}
+                            {/* Chat Mode Toggle - Hidden on mobile */}
+                            {!isMobile && (
                             <div className="segment-group">
                               <button
                                 className={`segment ${chatMode === 'normal' ? 'segment-active' : ''}`}
@@ -1283,6 +1372,7 @@ This enhanced context provides better guidance for AI assistants.`
                                 Engineer
                               </button>
                             </div>
+                            )}
                           </div>
                         )
                       })()
@@ -1296,6 +1386,7 @@ This enhanced context provides better guidance for AI assistants.`
                           backendStatus === 'disconnected' ? 'bg-red-500' :
                             'bg-yellow-500 animate-pulse'
                           }`}></div>
+                        {!isMobile && (
                         <span className={`text-xs ${backendStatus === 'connected' ? 'text-green-400' :
                           backendStatus === 'disconnected' ? 'text-red-400' :
                             'text-yellow-400'
@@ -1304,6 +1395,7 @@ This enhanced context provides better guidance for AI assistants.`
                             backendStatus === 'disconnected' ? 'Offline' :
                               'Connecting...'}
                         </span>
+                        )}
                       </div>
 
                       {showPromptGenerator && (
@@ -1344,13 +1436,24 @@ This enhanced context provides better guidance for AI assistants.`
                           <button
                             ref={collaborationButtonRef}
                             onClick={() => setShowCollaborationPanel(!showCollaborationPanel)}
-                            className={`group relative px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-1.5 overflow-hidden ${
+                            className={isMobile 
+                              ? "w-10 h-10 flex items-center justify-center rounded-full bg-[#d7ff2f] hover:brightness-110 transition-all"
+                              : `group relative px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-1.5 overflow-hidden ${
                               showCollaborationPanel 
                                 ? 'bg-[#4a5a3a] text-[#d7ff2f] border border-[#d7ff2f]/30' 
                                 : 'bg-[#2a2d35] hover:bg-[#33373f] text-white hover:text-[#d7ff2f] border border-transparent hover:border-[#d7ff2f]/20'
-                            }`}
+                              }`
+                            }
                             title="Collaboration"
                           >
+                            {isMobile ? (
+                              /* Mobile: People icon in yellow circle */
+                              <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                              </svg>
+                            ) : (
+                              /* Desktop: Full design with animation */
+                              <>
                             {/* Background animation */}
                             <div className="absolute inset-0 bg-gradient-to-r from-[#d7ff2f]/10 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                             
@@ -1368,6 +1471,8 @@ This enhanced context provides better guidance for AI assistants.`
                             <span className="relative z-10 group-hover:translate-x-0.5 transition-transform duration-200 text-xs">
                               Collab
                             </span>
+                              </>
+                            )}
                           </button>
                           {/* Collaboration Chat Dropdown */}
                           <CollaborationPanel
@@ -1431,8 +1536,8 @@ This enhanced context provides better guidance for AI assistants.`
             ) : (
               <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 {/* Messages - Scrollable */}
-                <div className="flex-1 overflow-y-auto px-4">
-                  <div className="py-6 space-y-6">
+                <div className={`flex-1 overflow-y-auto ${isMobile ? 'pb-28' : 'px-4'}`}>
+                  <div className={`py-6 space-y-6 ${isMobile ? 'px-4' : 'px-0'}`}>
                     {messages.length === 0 ? (
                       <div className="text-center text-gray-300 mt-6">
                         {showProjectContext ? (
@@ -1525,10 +1630,58 @@ This enhanced context provides better guidance for AI assistants.`
                           </div>
                         ) : (
                           // Default Chat Interface
-                          <div className="min-h-[60vh] flex flex-col items-center justify-center">
-                            <h2 className="text-4xl font-semibold mb-8 text-white">What's your <span className="citrus-accent-text">idea</span> ?</h2>
+                          <div className={`min-h-[60vh] flex flex-col items-center ${isMobile ? '' : 'px-4 justify-center'}`}>
+                            {!isMobile && <h2 className="text-4xl font-semibold mb-8 text-white">What's your <span className="citrus-accent-text">idea</span> ?</h2>}
                             {/* Center Search Bar */}
-                            <div className="w-full max-w-3xl text-left mt-6">
+                            <div className={`w-full max-w-3xl text-left ${isMobile ? '' : 'mt-6'}`}>
+                              {isMobile ? (
+                                /* Mobile Simplified Input - Fixed at bottom */
+                                <div className="fixed bottom-4 left-2 right-2 px-4 py-3 z-40">
+                                  <div className="flex items-center gap-3">
+                                    {/* Plus Button */}
+                                    <button
+                                      onClick={() => setMobileLeftSidebarOpen(true)}
+                                      className="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-full border-2 border-[#d7ff2f] bg-transparent hover:bg-[#d7ff2f]/10 transition-all"
+                                      aria-label="Menu"
+                                    >
+                                      <svg className="w-6 h-6 text-[#d7ff2f]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                                      </svg>
+                                    </button>
+                                    
+                                    {/* Input Field with Send Button */}
+                                    <div className="flex-1 relative">
+                                      <form onSubmit={handleSubmit} className="relative">
+                                        <textarea
+                                          value={input}
+                                          onChange={(e) => setInput(e.target.value)}
+                                          placeholder="Type your message..."
+                                          className="w-full bg-[#1a1b21] border-2 border-[#d7ff2f] rounded-3xl px-4 py-3 pr-14 text-white placeholder-gray-400 resize-none focus:outline-none focus:border-[#d7ff2f] focus:ring-0"
+                                          rows={1}
+                                          style={{ minHeight: '48px', maxHeight: '120px' }}
+                                          onKeyDown={(e) => {
+                                            if (e.key === 'Enter' && !e.shiftKey) {
+                                              e.preventDefault()
+                                              handleSubmit(e)
+                                            }
+                                          }}
+                                        />
+                                        <button
+                                          type="submit"
+                                          disabled={!input.trim() || isLoading}
+                                          className="absolute right-3 bottom-3 w-10 h-10 flex items-center justify-center rounded-full bg-[#d7ff2f] hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                          aria-label="Send"
+                                        >
+                                          <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                          </svg>
+                                        </button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              ) : (
+                                /* Desktop Full SearchBar */
                               <SearchBar
                                 input={input}
                                 setInput={setInput}
@@ -1556,6 +1709,7 @@ This enhanced context provides better guidance for AI assistants.`
                                 isCentered={true}
                                 chatMode={chatMode}
                               />
+                              )}
                             </div>
                           </div>
                         )}
@@ -1585,8 +1739,9 @@ This enhanced context provides better guidance for AI assistants.`
                   </div>
                 </div>
                 {/* Input Form - Fixed at Bottom (hidden on empty state) */}
-                {messages.length > 0 && (
+                {messages.length > 0 && !isMobile && (
                   <div className="bottom-input-form px-4 py-4 flex-shrink-0">
+                    {/* Desktop Full SearchBar */}
                     <SearchBar
                       input={input}
                       setInput={setInput}
@@ -1616,21 +1771,92 @@ This enhanced context provides better guidance for AI assistants.`
                     />
                   </div>
                 )}
+                {/* Mobile Input Form - Fixed at Bottom (always visible on mobile) */}
+                {messages.length > 0 && isMobile && (
+                  <div className="fixed bottom-4 left-2 right-2 px-4 py-3 z-40">
+                    <div className="flex items-center gap-3">
+                      {/* Plus Button */}
+                      <button
+                        onClick={() => setMobileLeftSidebarOpen(true)}
+                        className="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-full border-2 border-[#d7ff2f] bg-transparent hover:bg-[#d7ff2f]/10 transition-all"
+                        aria-label="Menu"
+                      >
+                        <svg className="w-6 h-6 text-[#d7ff2f]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                        </svg>
+                      </button>
+                      
+                      {/* Input Field with Send Button */}
+                      <div className="flex-1 relative">
+                        <form onSubmit={handleSubmit} className="relative">
+                          <textarea
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            placeholder="Type your message..."
+                            className="w-full bg-[#1a1b21] border-2 border-[#d7ff2f] rounded-3xl px-4 py-3 pr-14 text-white placeholder-gray-400 resize-none focus:outline-none focus:border-[#d7ff2f] focus:ring-0"
+                            rows={1}
+                            style={{ minHeight: '48px', maxHeight: '120px' }}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault()
+                                handleSubmit(e)
+                              }
+                            }}
+                          />
+                          <button
+                            type="submit"
+                            disabled={!input.trim() || isLoading}
+                            className="absolute right-3 bottom-3 w-10 h-10 flex items-center justify-center rounded-full bg-[#d7ff2f] hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            aria-label="Send"
+                          >
+                            <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
             {/* Right Panel - Template Style */}
-            {!rightSidebarCollapsed && (
-              <div className="w-64 no-border flex flex-col h-screen fixed top-0 right-2 z-20 bg-[#121318] sidebar-container"
+            {(!rightSidebarCollapsed || mobileRightSidebarOpen) && (
+              <div className={`w-64 no-border flex flex-col fixed bg-[#121318] sidebar-container transition-transform duration-300
+                ${isMobile ? 'top-16 h-[calc(100vh-4rem)] z-[60]' : 'top-0 h-screen z-50'}
+                md:right-2
+                ${mobileRightSidebarOpen ? 'right-0 translate-x-0' : 'translate-x-full md:translate-x-0'}
+                ${rightSidebarCollapsed && !mobileRightSidebarOpen ? 'md:hidden' : ''}`}
                 onMouseLeave={handleRightSidebarMouseLeave}>
                 {/* Right Sidebar Content */}
-                <div className="flex-1 flex flex-col p-4 min-h-0">
+                <div className="flex-1 flex flex-col p-4 min-h-0 overflow-y-auto">
                   {/* Top sections with flex-1 to take available space */}
-                  <div className="flex-1 flex flex-col space-y-2 min-h-0">
+                  <div className="flex flex-col space-y-2">
+                    {/* New Chat Button - Only on Mobile */}
+                    {isMobile && (
+                      <div className="bg-black/30 rounded-lg border citrus-border glow-ring">
+                        <button
+                          onClick={() => {
+                            createNewChat();
+                            setMobileRightSidebarOpen(false);
+                          }}
+                          className="w-full p-3 rounded-lg transition-all flex items-center justify-center space-x-2 hover:brightness-110 hover:bg-black/50 sidebar-button-enhanced"
+                        >
+                          <img src={newChatIcon} className="w-4 h-4" alt="New Chat" />
+                          <span className="citrus-accent-text font-medium text-sm">New Chat</span>
+                        </button>
+                      </div>
+                    )}
+                    
                     {/* Prompt Generator Button - Compact */}
                     <div className="bg-black/30 rounded-lg border citrus-border glow-ring">
                       <button
-                        onClick={() => { setShowPromptGenerator(true); setShowProjectContext(false) }}
+                        onClick={() => { 
+                          setShowPromptGenerator(true); 
+                          setShowProjectContext(false);
+                          if (isMobile) setMobileRightSidebarOpen(false);
+                        }}
                         className="w-full p-3 rounded-lg transition-all flex items-center justify-center space-x-2 hover:brightness-110 hover:bg-black/50 sidebar-button-enhanced"
                       >
                         <img src={promptIcon} className="w-4 h-4" alt="Prompt Generator" />
@@ -1639,7 +1865,7 @@ This enhanced context provides better guidance for AI assistants.`
                     </div>
 
                     {/* Project Context Section - Expanded for 3 items */}
-                    <div className="bg-black/30 rounded-lg border citrus-border glow-ring" style={{ height: '200px' }}>
+                    <div className={`bg-black/30 rounded-lg border citrus-border glow-ring ${isMobile ? 'flex-shrink-0' : ''}`} style={isMobile ? {} : { height: '200px' }}>
                       {/* Header */}
                       <div className="p-2 border-b border-gray-600">
                         <div className="flex items-center justify-between">
@@ -1657,7 +1883,7 @@ This enhanced context provides better guidance for AI assistants.`
                       </div>
 
                       {/* Content - Expanded height for 3 items */}
-                      <div className="overflow-y-auto p-2" style={{ height: '160px' }}>
+                      <div className={`overflow-y-auto p-2 ${isMobile ? 'max-h-48' : ''}`} style={isMobile ? {} : { height: '160px' }}>
                         {projectContexts.length === 0 ? (
                           <div className="text-center text-gray-400 text-xs py-4">
                             <div className="mb-1">Add your project context</div>
@@ -1729,7 +1955,7 @@ This enhanced context provides better guidance for AI assistants.`
                   <div className="mt-2 flex-shrink-0">
 
                     {/* Templates Section - Sticky at Bottom */}
-                    <div className="bg-black/30 rounded-lg border citrus-border glow-ring flex flex-col" style={{ height: '300px' }}>
+                    <div className={`bg-black/30 rounded-lg border citrus-border glow-ring flex flex-col ${isMobile ? '' : ''}`} style={isMobile ? {} : { height: '300px' }}>
                       {/* Header */}
                       <div className="p-2 border-b border-gray-600 flex-shrink-0">
                         <div className="flex items-center justify-between">
@@ -1891,9 +2117,9 @@ This enhanced context provides better guidance for AI assistants.`
                 </div>
               </div>
             )}
-            {rightSidebarCollapsed && (
+            {rightSidebarCollapsed && !isMobile && (
               <div
-                className="right-sidebar flex flex-col items-center justify-between fixed top-0 right-[0.5rem] h-screen z-20"
+                className="right-sidebar flex flex-col items-center justify-between fixed top-0 right-[0.5rem] h-screen z-20 hidden md:flex"
                 onMouseEnter={handleRightSidebarMouseEnter}
               >
                 {/* Top icons: Prompt Generator and Project Context (reversed order) */}

@@ -26,12 +26,20 @@ const CollaborationPanelCompact = ({ chatId, isVisible, onClose, anchorRef, curr
   const [notifications, setNotifications] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   // Refs
   const panelRef = useRef(null);
   const messagesEndRef = useRef(null);
   const typingTimeoutRef = useRef(null);
   const fileInputRef = useRef(null);
+
+  // Detect mobile view
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Effects
   useEffect(() => {
@@ -52,6 +60,9 @@ const CollaborationPanelCompact = ({ chatId, isVisible, onClose, anchorRef, curr
 
   useEffect(() => {
     const handleClickOutside = (e) => {
+      // Don't close on click outside on mobile - use backdrop or X button
+      if (isMobile) return;
+      
       if (panelRef.current && !panelRef.current.contains(e.target) &&
         anchorRef?.current && !anchorRef.current.contains(e.target)) {
         onClose();
@@ -62,7 +73,7 @@ const CollaborationPanelCompact = ({ chatId, isVisible, onClose, anchorRef, curr
       document.addEventListener('mousedown', handleClickOutside);
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }
-  }, [isVisible, onClose, anchorRef]);
+  }, [isVisible, onClose, anchorRef, isMobile]);
 
   // API Functions
   const loadCollaborationData = async () => {
@@ -230,11 +241,23 @@ const CollaborationPanelCompact = ({ chatId, isVisible, onClose, anchorRef, curr
   if (!isVisible) return null;
 
   return (
-    <div
-      ref={panelRef}
-      className="absolute top-full right-0 mt-2 w-80 bg-[#2a2f3a]/95 border border-[#d7ff2f]/20 rounded-xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl collaboration-panel-compact"
-      style={{ maxHeight: '800px' }}
-    >
+    <>
+      {/* Mobile Backdrop */}
+      {isMobile && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
+          onClick={onClose}
+        />
+      )}
+      
+      <div
+        ref={panelRef}
+        className={isMobile 
+          ? "fixed top-16 left-0 right-0 bottom-0 bg-[#2a2f3a]/95 border-t border-[#d7ff2f]/20 shadow-2xl z-[101] overflow-hidden backdrop-blur-xl collaboration-panel-compact"
+          : "absolute top-full right-0 mt-2 w-80 bg-[#2a2f3a]/95 border border-[#d7ff2f]/20 rounded-xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl collaboration-panel-compact"
+        }
+        style={isMobile ? {} : { maxHeight: '800px' }}
+      >
       {/* Compact Header - Exactly like reference */}
       <div className="px-4 py-3 border-b border-[#d7ff2f]/10 flex items-center justify-between bg-[#1a1f2a]/50">
         <div className="flex items-center gap-3">
@@ -855,6 +878,7 @@ const CollaborationPanelCompact = ({ chatId, isVisible, onClose, anchorRef, curr
         </div>
       )}
     </div>
+    </>
   );
 };
 
